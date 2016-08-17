@@ -1,0 +1,22 @@
+<% content_for :players do %>
+	<%= "class=active" %>
+<% end %>
+
+<h1 class="striker_h1"> <%= t('content.reports.players') %> </h1>
+
+<table class="table table-bordered table-strikers">
+	<thead>
+		<th> <%= t('content.reports.player') %> </th>
+		<th> <%= t('content.reports.matches') %></th>
+		<th> <%= t('content.reports.details') %> </th>
+	</thead>
+	<tbody>
+	<% @presences.each do |presence| %>
+		<tr>
+			<td> <%= player_name(presence[0]) %></td>
+			<td> <%= presence[1] %></td>
+			<td> <%= link_to image_tag("player.png"), "/reports/player/#{presence[0].id}" %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

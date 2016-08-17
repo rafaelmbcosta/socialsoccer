@@ -1,0 +1,47 @@
+<%= form_for(@match) do |f| %>
+  <% if @match.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@match.errors.count, "error") %> prohibited this match from being saved:</h2>
+
+      <ul>
+      <% @match.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :season_id %><br>
+    <%= f.select :season_id, Season.all.collect{|s| s.number}.sort.reverse, {}, :class => 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :date %><br>
+    <%= f.date_select :date, {:order => [:day, :month, :year]} %>
+  </div>
+  <div class="form-group">
+    <%= f.label :value, "Valor por pessoa" %><br>
+    <%= f.text_field :value, :class => 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :field_value, "Valor do campo" %><br>
+    <%= f.text_field :field_value, :class => 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :video_link, "Video"%><br>
+    <%= f.text_field :video_link, :class => 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :sumula_link, "Sumula"%><br>
+    <%= f.text_field :sumula_link, :class => 'form-control' %>
+  </div>
+    <div class="form-group">
+    <%= f.label :finished, "Finalizado"%><br>
+    <%= f.check_box :finished, :class => 'form-control' %>
+  </div>
+  <div class="actions">
+    <%= f.submit nil , :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                matches_path, :class => 'btn btn-default' %>
+  </div>
+<% end %>

@@ -1,0 +1,45 @@
+<style>
+	a:hover{
+		background-color: #700000 !important;
+		color: #FFF !important;
+	}
+</style>
+
+<% content_for :top_strikers do %>
+	<%= "class=active" %>
+<% end %>
+
+<h1 class="striker_h1"> <%= t('content.reports.titles.season') %> <%= @season.id %> </h1>
+
+<table class="table table-bordered table-strikers">
+	<thead>
+		<th> <%= t('content.reports.matches') %> </th>
+		<th> <%= t('content.reports.goals') %> </th>
+		<th> <%= t('content.reports.goal_average') %> </th>
+	</thead>
+	<tbody>
+		<tr>
+			<% goals = @season.goals %>
+			<% matches = @season.matches.size %>
+			<td> <%= matches %> </td>
+			<td> <%= goals %> </td>
+			<td> <%= (goals/matches.to_f).round(1) %> </td>
+		</tr>
+	</tbody>
+</table>
+
+<h1 class="striker_h1"> <%= t('content.reports.titles.strikers') %>  </h1>
+<table class="table table-bordered table-strikers">
+	<thead>
+		<th> <%= t('content.reports.player') %> </th>
+		<th> <%= t('content.reports.goals') %> </th>
+	</thead>
+	<tbody>
+	<% @result.each do |result| %>
+		<tr>
+			<td> <%= link_to "#{result['name']}", "/reports/player/#{result['id']}" %></td>
+			<td> <b><%= result["goals"] %></b> </td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

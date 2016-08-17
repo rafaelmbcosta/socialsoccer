@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= t('content.reports.titles.head') %></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<header>
+  <div class="gradient-primary">
+    <% if user_signed_in? %>
+      <div class="logout">
+        <%= link_to "Logout", destroy_user_session_path, :method => :delete %>
+      </div>
+    <% end %>
+    <div class="text-title"> <%= t('content.reports.titles.main') %></div>
+    <% if user_signed_in? %>
+      <div class="logado"> <%= current_user.email %> </div>
+    <% end %>
+  </div>
+  <div class="main-nav-bar">
+    <div class="container-nav">
+      <ul class="nav navbar-nav">
+        <li><a <%= yield :top_strikers %> href="/"><%= t('content.menu.strikers') %></a> </li>
+        <li><a <%= yield :videos %> href="/reports/videos"><%= t('content.menu.videos') %></a> </li>
+        <li><a <%= yield :matches %> href="/reports/matches"><%= t('content.menu.matches') %></a></li>
+        <li><a <%= yield :players %> href="/reports/players"><%= t('content.menu.players') %></a></li>
+        <li><a <%= yield :seasons %> href="#"><%= t('content.menu.seasons') %></a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="row">
+        <div class="col-lg-10" style="margin-left: 100px;">
+        <%= yield %>
+      </div>
+    </div><!--/row-->
+</div>
+
+</body>
+</html>

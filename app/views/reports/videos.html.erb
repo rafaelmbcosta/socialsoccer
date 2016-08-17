@@ -1,0 +1,16 @@
+<style>
+	.video{
+		width: 600px;
+		margin: 20px auto;
+	}
+</style>
+
+<% content_for :videos do %>
+	<%= "class=active" %>
+<% end %>
+
+<h1> <%= t('content.reports.titles.videos') %> </h1>
+
+<% @videos.reverse.each do |video| %>
+	<div class="video"> <%=raw video.url %> </div>
+<% end %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Jogos em aberto</h1>
+
+<% if @matches.nil? %>
+  <p> Nenhuma partida em aberto </p>
+<% else %>
+  <ul>
+    <% @matches.reverse.each do |match| %>
+    	<li> <%= link_to "RACHA #{match.id} - Racha do dia #{match.date.strftime('%d/%m/%Y')}", 
+      	new_match_presence_url(id: match.id) %> </li>
+    <% end %>
+  </ul>
+<% end %>

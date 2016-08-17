@@ -1,0 +1,125 @@
+<style>
+	.data_player{
+		margin: 0px auto 10px auto;
+		font-size: 15px;
+		width: 54%;
+	}
+	.data_player dt{
+		color: #700000;
+		vertical-align: middle;
+		padding: 5px;
+	} 
+	.data_player dd{
+		vertical-align: middle;
+		padding: 5px;
+	}
+	.team{
+		text-align: center;
+	}
+	#gol_chart{
+		width: 90%;
+		margin: 20px auto;
+	}
+</style>
+
+<% content_for :players do %>
+	<%= "class=active" %>
+<% end %>
+
+<h1 class="striker_h1"> <%= t('content.reports.titles.player') %> <%= player_name(@player) %> </h1>
+
+<br/>
+<dl class="dl-horizontal data_player">
+  <dt><strong><%= t('content.reports.matches_played') %>:</strong></dt>
+  <dd><%= @matches_played.size %></dd>
+  <dt><strong><%= t('content.reports.goals') %>:</strong></dt>
+  <dd><%= @goals  %></dd>
+  <dt><strong><%= t('content.reports.goals_per_match') %>:</strong></dt>
+  <dd><%= @goals_match %></dd>
+</dl>
+
+<div id="gol_chart"></div>
+
+<h3> <%= t('content.reports.best_team') %> ( <%= " #{@best_team[:top_goals]} gols" %> )</h3>
+
+<div class="team">
+<%= link_to "#{t('content.reports.matches').singularize} #{@best_team[:best_id]}", "/reports/match_detail/#{@best_team[:best_id]}", id: @best_team[:best_id] %>
+</div>
+
+<table class="table table-bordered table-strikers">
+	<thead>
+		<th> <%= t('content.reports.player') %> </th>
+	</thead>
+	<tbody>
+	<% @best_team[:top_team].each do |player| %>
+		<tr>
+			<td> <%= "#{player_name(player[0])} (#{player[1]} gols)" %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+
+<h3> <%= t('content.reports.worst_team') %> ( <%= " #{@best_team[:worst_goals]} gols" %> )</h3>
+
+<div class="team">
+<%= link_to "#{t('content.reports.matches').singularize} #{@best_team[:worst_id]}", "/reports/match_detail/#{@best_team[:worst_id]}", id: @best_team[:worst_id] %>
+</div>
+
+<table class="table table-bordered table-strikers">
+	<thead>
+		<th> <%= t('content.reports.player') %> </th>
+	</thead>
+	<tbody>
+	<% @best_team[:bad_team].each do |player| %>
+		<tr>
+			<td> <%= "#{player_name(player[0])} (#{player[1]} gols)" %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+
+<h3><%= link_to t('helpers.links.back'), "/reports/players" %></h3>
+
+<script>
+
+	$(document).ready(function() {
+	    $('#gol_chart').highcharts({
+	        title: {
+	            text: '<%= t('content.reports.goals_per_match') %>',
+	            x: -20 //center
+	        },
+	        xAxis: {
+	            categories: <%= @matches_played.collect{|mp| mp.match.id} %>
+	        },
+	        yAxis: {
+	            title: {
+	                text: '<%= t('content.reports.goals') %>'
+	            },
+	            plotLines: [{
+	                value: 0,
+	                width: 1,
+	                color: '#808080'
+	            }]
+	        },
+	        tooltip: {
+	            valueSuffix: ' <%= t('content.reports.goals') %>'
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            borderWidth: 0
+	        },
+	        series: [{
+	            name: '<%= t('content.reports.goal_average') %>',
+	            color: '#999999',
+	            data: <%= @matches_played.collect{|mp| mp.match.average_goal_by_player} %>
+	        },
+	        {
+	            name: '<%= t('content.reports.goals_made_by') %> <%= player_name(@player) %>',
+	            color: '#700000',
+	            data: <%= @matches_played.collect{|mp| mp.goals} %>
+	        }]
+	    });
+	});
+</script>

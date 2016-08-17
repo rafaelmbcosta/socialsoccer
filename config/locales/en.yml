@@ -1,0 +1,54 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+content:
+    layout_title: 'Social Soccer'
+    reports:
+      titles:
+        season: 'Season '
+        strikers: 'Top Strikers'
+        videos: 'All videos'
+        match_detail: 'Match detail'
+        main: 'Social Soccer'
+        head: 'Social Soccer'
+        player: 'Showing '
+      matches_played: 'Matches played'
+      goals_per_match: 'Gols per match'
+      goal_average: 'Goal average'
+      best_team: 'Best team'
+      worst_team: 'Worst team'
+      docket: 'Docket'
+      player: 'Player'
+      players: 'Players'
+      goals: 'Goals'
+      team: 'Team'
+      matches: 'Matches'
+      goal_average: 'Goal average'
+      goals_made_by: 'Gols made by '
+      data: 'Date'
+      details: 'Details'
+    menu:
+      strikers: 'Top Strikers'
+      videos: 'Videos'
+      matches: 'Matches'
+      players: 'Players'
+      seasons: 'Seasons'

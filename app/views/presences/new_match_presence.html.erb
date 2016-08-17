@@ -1,0 +1,144 @@
+<style>
+  td {
+    vertical-align: middle !important;
+    text-align: center;
+  }
+  p, th {
+    text-align: center;
+    vertical-align: middle !important;
+  }
+  a:visited { color: #FFF; }
+  .teams{
+    height: 27px;
+    width: 180px;
+    margin: 0 auto 0 auto;
+  }
+  .team {
+    width: 35px;
+    height: 35px;
+    margin-left: 1px;
+    float: left;
+  }
+  img{
+    width: 35px;
+    height: 35px;
+  }
+  .chosen{
+    border: 4px solid red;
+  }
+
+  .small{
+    margin: 5px;
+    width: 25px;
+    height: 25px;
+  }
+  .numeral{
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 2px;
+  }
+</style>
+
+<h1> Presença de jogadores por partida </h1>
+<h3> Partida dia: <%= @match.date.strftime('%d/%m/%Y') %></h3>
+<table class="table table-striped">
+  <thead>
+    <th> Jogador </th>
+    <th> Confirmou </th>
+    <th> Jogou </th>
+    <th> Pagou </th>
+    <th> Gols </th>
+    <th> Time </th>
+  </thead>
+  <tbody>
+    <% @players.order(:name).each do |player| %>
+      <tr>
+        <td> <b><%= player.name %> <% unless player.nickname.nil? %> <%= "( #{player.nickname} )" %></b><% end  %></td>
+        <td>
+          <% if player.confirmed_match(@match.id) %>
+            <p><%= image_tag "confirmed.png" %></p>
+          <% else %>
+            <%= link_to "Confirmar", "/presences/confirmed/#{@match.id}/#{player.id}", class: "btn btn-info confirm" , player_id: player.id, id: @match.id %> </td>
+          <% end %>
+        <td>
+          <% if player.played_match(@match.id) %>
+            <p><%= image_tag "played.png" %></p>
+          <% else %>
+           <%= link_to "Jogou", "/presences/played/#{@match.id}/#{player.id}", class: "btn btn-success play", player_id: player.id, id: @match.id %>
+          <% end %>
+        </td>
+        <td>
+          <% if player.payed_match(@match.id) %>
+            <p><%= image_tag "payed.png" %></p>
+          <% else %>
+            <%= link_to "Pagar", "/presences/payed/#{@match.id}/#{player.id}", class: "btn btn-warning confirm" , player_id: player.id, id: @match.id %> </td>
+            <% end %>
+        </td>
+        <td>
+          <% if player.played_match(@match.id) %>
+            <p>
+              <%= link_to image_tag("minus.png", class: "small"), "#", player_id: player.id, goals: player.goals_match(@match.id), id: @match.id, class: "minus minus_#{player.id}", remote: true %>
+              <span class="gol"><span class="numeral" id="goal_<%= player.id %>"><%= player.goals_match(@match.id) %></span></span>
+              <%= link_to image_tag("plus.png", class: "small"), "#", player_id: player.id, goals: player.goals_match(@match.id), id: @match.id, class: "plus plus_#{player.id}" %>
+            </p>
+          <% end %>
+        </td>
+        <td>
+            <% if player.played_match(@match.id) %>
+              <div class="teams">
+                <% Team.all.each do |team| %>
+                  <% (player.team_played(@match.id) == team.id) ? chosen = "chosen" : chosen = "" %>
+                  <%= link_to "", "/presences/team_played/#{@match.id}/#{player.id}/#{team.id}", class: "team #{chosen}", style: "background-color: #{team.rgb}" %>
+                  <% end %>
+              </div>
+            <% end %>
+        </td>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  $(".plus").click(function(){
+    var data;
+    var match_id;
+    var player_id;
+    var goals;
+    goals = this.getAttribute("goals");
+    player_id = this.getAttribute("player_id");
+    match_id = this.getAttribute("id");
+    $.ajax({
+        type: "POST",
+        url: '/presences/manage_goals',
+        data: {id: match_id, player_id: player_id, goals: goals, operation: 'plus'},
+        dataType: "JSON",
+        success: function(data) {
+            console.log(data)
+        }
+    });
+    $('#goal_'+player_id).text(parseInt(goals)+1);
+    $('.plus_'+player_id).attr("goals",parseInt(goals)+1+"" );
+    $('.minus_'+player_id).attr("goals",parseInt(goals)+1+"" );
+  });
+
+  $(".minus").click(function(){
+    var data;
+    var match_id;
+    var player_id;
+    var goals;
+    goals = this.getAttribute("goals");
+    player_id = this.getAttribute("player_id");
+    match_id = this.getAttribute("id");
+    $.ajax({
+        type: "POST",
+        url: '/presences/manage_goals',
+        data: {id: match_id, player_id: player_id, goals: goals, operation: 'minus'},
+        dataType: "JSON",
+        success: function(data) {
+            console.log(data)
+        }
+    });
+    $('#goal_'+player_id).text(parseInt(goals)-1);
+    $('.minus_'+player_id).attr("goals",parseInt(goals)-1+"" );
+    $('.plus_'+player_id).attr("goals",parseInt(goals)-1+"" );
+  });
+</script>
