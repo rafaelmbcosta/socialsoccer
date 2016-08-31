@@ -1,6 +1,9 @@
 # encoding: utf-8
 
 class AvatarUploader < CarrierWave::Uploader::Base
+  def cache_dir
+    "#{Rails.root}/tmp/uploads"
+  end
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
