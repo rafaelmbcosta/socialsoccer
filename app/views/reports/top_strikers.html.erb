@@ -19,11 +19,9 @@
 	</thead>
 	<tbody>
 		<tr>
-			<% goals = @season.goals %>
-			<% matches = @season.matches.size %>
-			<td> <%= matches %> </td>
-			<td> <%= goals %> </td>
-			<td> <%= (goals/matches.to_f).round(1) %> </td>
+			<td> <%= @matches %> </td>
+			<td> <%= @goals %> </td>
+			<td> <%= (@goals/@matches.to_f).round(1) %> </td>
 		</tr>
 	</tbody>
 </table>
