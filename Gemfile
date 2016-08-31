@@ -30,6 +30,10 @@ gem 'devise'
 # Use ActiveModel has_secure_password
 gem 'rails_12factor'
 
+# File upload gems
+gem 'mini_magick'
+gem 'carrierwave'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

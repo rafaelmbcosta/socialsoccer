@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629195453) do
+ActiveRecord::Schema.define(version: 20160831134841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,15 +24,19 @@ ActiveRecord::Schema.define(version: 20160629195453) do
     t.boolean  "video",       default: false, null: false
     t.string   "video_link"
     t.string   "sumula_link"
+    t.integer  "season_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
+
+  add_index "matches", ["season_id"], name: "index_matches_on_season_id", using: :btree
 
   create_table "players", force: :cascade do |t|
     t.string   "name",       null: false
     t.string   "nickname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "avatar"
   end
 
   create_table "presences", force: :cascade do |t|
@@ -90,6 +94,7 @@ ActiveRecord::Schema.define(version: 20160629195453) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "matches", "seasons"
   add_foreign_key "presences", "matches"
   add_foreign_key "presences", "players"
   add_foreign_key "presences", "teams"

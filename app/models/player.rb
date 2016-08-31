@@ -1,7 +1,10 @@
+require 'carrierwave/orm/activerecord'
+
 class Player < ActiveRecord::Base
 
   has_many :presences
   has_many :matches, through: :presences
+  mount_uploader :avatar, AvatarUploader
 
   def self.presence(player_id, match_id)
     presence = Presence.where("match_id = #{match_id} and player_id = #{player_id}")
