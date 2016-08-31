@@ -20,15 +20,41 @@
 		width: 90%;
 		margin: 20px auto;
 	}
+	.profile{
+		width: 380px;
+		background-color: #f5f5f5;
+		padding: 15px;
+		margin: 10px auto;
+		border: 2px solid #dedede;
+		text-align: center;
+	}
+	.profile_pic{
+		background-color: #FFF;
+		width: 340px;
+		margin: 0px auto;
+		border: 2px solid #dedede;
+		border-radius: 10px;
+	}
 </style>
 
 <% content_for :players do %>
 	<%= "class=active" %>
 <% end %>
 
-<h1 class="striker_h1"> <%= t('content.reports.titles.player') %> <%= player_name(@player) %> </h1>
 
 <br/>
+
+<div class="profile">
+	<% if @player.avatar.url.nil? %>
+		<%= image_tag("profile_default.png",   {class: 'profile_pic'}) %>
+	<% else %>
+		<%= image_tag(@player.avatar.url,   {class: 'profile_pic'}) %>
+	<% end %>
+</div>
+
+<h1 class="striker_h1"> <%= t('content.reports.titles.player') %> <%= player_name(@player) %> </h1>
+
+
 <dl class="dl-horizontal data_player">
   <dt><strong><%= t('content.reports.matches_played') %>:</strong></dt>
   <dd><%= @matches_played.size %></dd>
