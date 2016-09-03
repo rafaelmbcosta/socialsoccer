@@ -29,10 +29,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 # Use ActiveModel has_secure_password
 gem 'rails_12factor'
+# For AWS storage
+gem 'fog'
 
 # File upload gems
 gem 'mini_magick'
 gem 'carrierwave'
+gem "figaro"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
