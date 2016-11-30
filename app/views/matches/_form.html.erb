@@ -13,7 +13,7 @@
 
   <div class="form-group">
     <%= f.label :season_id %><br>
-    <%= f.select :season_id, Season.all.collect{|s| s.number}.sort.reverse, {}, :class => 'form-control' %>
+    <%= f.select :season_id, Season.all.collect{|s| [s.number, s.id] }.sort.reverse, {}, :class => 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :date %><br>

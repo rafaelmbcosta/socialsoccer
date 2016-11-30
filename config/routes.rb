@@ -16,7 +16,9 @@ Rails.application.routes.draw do
   post 'presences/manage_goals' => 'presences#manage_goals', as: :manage_goals
 
   get 'reports/top_strikers' => 'reports#top_strikers'
+  get 'reports/top_strikers/:id' => 'reports#top_strikers'
   get 'reports/matches' => 'reports#matches'
+  get 'reports/seasons' => 'reports#seasons'
   get 'reports/players' => 'reports#players'
   get 'reports/player/:id' => 'reports#player'
   get 'reports/match_detail/:id' => 'reports#match_detail'
