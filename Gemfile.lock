@@ -9,7 +9,7 @@ GIT
       railties (>= 3.1)
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     CFPropertyList (2.3.2)
     actionmailer (4.2.3)
@@ -271,6 +271,7 @@ GEM
     powerpack (0.1.1)
     puma (3.4.0)
     rack (1.6.4)
+    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.3)
@@ -416,6 +417,7 @@ DEPENDENCIES
   mini_magick
   pg
   puma
+  rack-cors
   rails (= 4.2.3)
   rails_12factor
   rspec-its
