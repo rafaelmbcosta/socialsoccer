@@ -9,7 +9,13 @@ class PresencesController < ApplicationController
   end
 
   def new_match_presence
-    @players = Player.all
+    @players = []
+    @search_term = ""
+    if params[:search].present?
+      @search_term = params[:search][:keywords].downcase
+      @players = Player.all.where("name ilike '%#{@search_term}%' or nickname ilike '%#{@search_term}%' ")
+    end
+    @teams = Team.all
     @match = Match.find(params["id"])
   end
 
@@ -58,11 +64,12 @@ class PresencesController < ApplicationController
   end
 
   def played
-    presence = Player.presence(params["player_id"], params["id"] )
+    # raise params.inspect
+    presence = Player.presence(params["player_id"], params["id"])
     presence.presence =  true
     presence.save
     respond_to do |format|
-      format.html { redirect_to new_match_presence_path }
+      format.html { redirect_to new_match_presence_path(params: {"search" => { "keywords" => params["keywords"]}}) }
     end
   end
 
@@ -76,11 +83,11 @@ class PresencesController < ApplicationController
   end
 
   def team_played
-    presence = Player.presence(params["player_id"], params["id"] )
+    presence = Player.presence(params["player_id"], params["match_id"] )
     presence.team_id =  params["team_id"]
     presence.save
     respond_to do |format|
-      format.html { redirect_to new_match_presence_path }
+      format.js
     end
   end
 

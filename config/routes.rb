@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'presences/played/:id/:player_id' => 'presences#played', as: :played
   get 'presences/payed/:id/:player_id' => 'presences#payed', as: :payed
   get 'presences/confirmed/:id/:player_id' => 'presences#confirmed', as: :confirmed
-  get 'presences/team_played/:id/:player_id/:team_id' => 'presences#team_played', as: :team_played
+  post 'presences/team_played' => 'presences#team_played', as: :team_played
   post 'presences/manage_goals' => 'presences#manage_goals', as: :manage_goals
 
   get 'reports/top_strikers' => 'reports#top_strikers'
