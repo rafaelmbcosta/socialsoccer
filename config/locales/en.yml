@@ -24,6 +24,8 @@ content:
     layout_title: 'Social Soccer'
     reports:
       titles:
+        current_season: 'Showing Season: '
+        overview: 'Overview'
         season: 'Season '
         strikers: 'Top Strikers'
         videos: 'All videos'

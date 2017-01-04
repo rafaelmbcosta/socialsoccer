@@ -1,7 +1,8 @@
 class ReportsController < ApplicationController
 	def top_strikers
-		@season = params[:season_id] ? Season.find(params[:season_id]) : Season.last
-	    @goals = @season.goals
+		# raise params.inspect
+		@season = params["id"] ? Season.find(params["id"]) : Season.last
+	  @goals = @season.goals
 		@matches = @season.matches.size
 		@result = @season.top_strikers
 		respond_to do |format|
@@ -11,7 +12,7 @@ class ReportsController < ApplicationController
 	end
 
 	def seasons
-		@seasons = Season.all.collect{|season| { _id: season.id, number: season.number}} 
+		@seasons = Season.all.collect{|season| { _id: season.id, number: season.number}}
 		respond_to do |format|
 			format.json { render json: @seasons }
 		end
