@@ -3,13 +3,21 @@
 		background-color: #700000 !important;
 		color: #FFF !important;
 	}
+	.top-text{
+		color: #700000;
+		margin-top: 20px;
+	}
 </style>
 
 <% content_for :top_strikers do %>
 	<%= "class=active" %>
 <% end %>
 
-<h1 class="striker_h1"> <%= t('content.reports.titles.season') %> <%= @season.id %> </h1>
+<div class="text-center top-text">
+		<%= t('content.reports.titles.current_season') %> <%= select_tag "season", options_from_collection_for_select( Season.all, "id", "id", @season.id), id: 'season_select' %>
+</div>
+
+<h1 class="striker_h1"> <%= t('content.reports.titles.overview') %> </h1>
 
 <table class="table table-bordered table-strikers">
 	<thead>
@@ -41,3 +49,10 @@
 	<% end %>
 	</tbody>
 </table>
+
+<script>
+  $("#season_select").change(function(){
+		var season = $("#season_select").val();
+		window.location.href = '/reports/top_strikers/'+season;
+	});
+</script>

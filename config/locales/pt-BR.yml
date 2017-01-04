@@ -3,7 +3,9 @@ pt-BR:
     layout_title: 'Racha do Pio XII'
     reports:
       titles:
-        season: 'Info da Temporada '
+        current_season: 'Exibindo Temporada: '
+        overview: 'Resumo'
+        season: 'Temporada '
         strikers: 'Artilheiros'
         videos: 'Todos os videos'
         match_detail: 'Detalhes da partida'
