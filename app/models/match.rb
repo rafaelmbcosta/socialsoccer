@@ -1,7 +1,7 @@
 class Match < ActiveRecord::Base
-  
   has_many :presences
   belongs_to :season
+  mount_uploader :sumula_link, SumulaUploader
 
   def self.unfinished
     return Match.all.where("finished is false")
