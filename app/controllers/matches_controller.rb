@@ -8,7 +8,7 @@ class MatchesController < ApplicationController
     @last_season = Season.last
     @last_season = Season.find(params["filter"]["season"]) if params["filter"].present?
     @matches = Match.where("season_id = ?", @last_season.id).order(id: :desc)
-    @matches = Match.where("finished is true") if  params["filter"].present? and params["filter"]["finished"]
+    @matches = Match.where("finished is ?", params["filter"]["finished"]) if  params["filter"].present?
   end
 
   # GET /matches/1
