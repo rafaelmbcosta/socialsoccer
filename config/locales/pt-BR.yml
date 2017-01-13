@@ -1,4 +1,20 @@
 pt-BR:
+  devise:
+    failure:
+      already_authenticated: "Você já está logado."
+      inactive: "Sua conta ainda não foi ativada."
+      invalid: "%{authentication_keys} ou senha inválida."
+      locked: "Sua conta está bloqueada."
+      last_attempt: "Você tem mais uma tentativa antes de bloquear sua conta."
+      not_found_in_database: "%{authentication_keys} ou senha inválida."
+      timeout: "Sua sessão expirou, por favor, efetue login novamente para continuar."
+      unauthenticated: "Para continuar, efetue login ou registre-se."
+    sessions:
+      signed_in: "Login efetuado com sucesso!"
+      signed_out: "Saiu com sucesso."
+      already_signed_out: "Saiu com sucesso."
+    registrations:
+      signed_up: "Login efetuado com sucesso."
   content:
     layout_title: 'Racha do Pio XII'
     reports:

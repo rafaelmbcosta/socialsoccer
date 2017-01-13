@@ -6,14 +6,31 @@
   <h1><%=t 'helpers.titles.list', :model => @matches.model_name.human.pluralize.titleize %></h1>
 </div>
 
+<%= form_for "filter", method: :get, url: matches_path , class: "form-horizontal" do |f| %>
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <%= f.check_box "finished", { class: "checkbox" }, true, false  %>Finalizado ?
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.select :season, Season.all.collect{|x| [x.number, x.id]}, { selected: @last_season.id} ,{ class: "form-control"}  %>
+  </div>
+  <div class="form-group">
+    <%= f.submit nil, class: "btn btn-danger" %>
+  </div>
+<% end %>
+
 <table class="table">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= t("content.report.titles.season") %>
       <th><%= model_class.human_attribute_name(:date) %></th>
       <th><%= model_class.human_attribute_name(:finished) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
-      
+
     </tr>
   </thead>
 
@@ -21,12 +38,13 @@
     <% @matches.each do |match| %>
       <tr>
         <td><b><%= match.id %></b></td>
+        <td> <% match.season.number %>
         <td><%= match.date.strftime("%d/%m/%Y") %></td>
                 <td><%= match.finished? ? "Sim" : "Não" %></td>
         <td><%= link_to t("helpers.links.show"), match, class: "btn btn-default" %></td>
         <td><%= link_to t("helpers.links.edit"), edit_match_path(match), class: "btn btn-default" %></td>
         <td>
-          <%= link_to t("helpers.links.destroy"), match, method: :delete, 
+          <%= link_to t("helpers.links.destroy"), match, method: :delete,
               data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
         </td>
       </tr>
