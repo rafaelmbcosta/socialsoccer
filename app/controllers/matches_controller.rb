@@ -4,11 +4,10 @@ class MatchesController < ApplicationController
   # GET /matches
   # GET /matches.json
   def index
-    # raise params.inspect
     @last_season = Season.last
     @last_season = Season.find(params["filter"]["season"]) if params["filter"].present?
     @matches = Match.where("season_id = ?", @last_season.id).order(id: :desc)
-    @matches = Match.where("finished is ?", params["filter"]["finished"]) if  params["filter"].present?
+    @matches = @matches.where("finished is false", params["filter"]["finished"]) if  params["filter"].present? and params["filter"]["finished"]
   end
 
   # GET /matches/1
