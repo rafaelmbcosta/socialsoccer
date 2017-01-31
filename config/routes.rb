@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'reports/seasons' => 'reports#seasons'
   get 'reports/players' => 'reports#players'
   get 'reports/player/:id' => 'reports#player'
-  get 'reports/match_detail/:id' => 'reports#match_detail'
+  get 'reports/match_detail/:id' => 'reports#match_detail', as: :reports_match_detail
   get 'reports/videos' => 'reports#videos'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -2,9 +2,21 @@
 	<%= "class=active" %>
 <% end %>
 
-<h1 class="striker_h1"> <%= t('content.reports.titles.match_detail') %> <%= "#{@match.id} (#{@match.date.strftime("%d/%m/%Y")})" %> </h1>
+<h1 class="striker_h1"> <%= t('content.reports.titles.match_detail') %> <%= "#{@match.id} (#{ l @match.date})" %> </h1>
 
-<h3><%= link_to t('content.reports.docket').upcase, @match.sumula_link, target: "_blank" %></h3>
+<h3></h3>
+
+<div class="profile">
+	<% if @match.sumula_link.url.nil? %>
+		<p class="text-center">
+			<%= t('content.reports.docket_not_found') %>
+		</p>
+	<% else %>
+		<p class="text-center">
+			<%= link_to t('content.reports.docket').upcase, @match.sumula_link.url, class: "btn btn-danger" %>
+		</p>
+	<% end %>
+</div>
 
 <table class="table table-bordered table-strikers">
 	<thead>
@@ -16,13 +28,13 @@
 	<% @presences.each do |presence| %>
 		<% player = Player.find(presence.player_id) %>
 		<tr>
-			<td> 
-				<%= player.name %> 
-				<% unless (player.nickname.nil? or player.nickname.blank?) %> 
+			<td>
+				<%= player.name %>
+				<% unless (player.nickname.nil? or player.nickname.blank?) %>
 					<%= " ( #{player.nickname} )" %>
 				<% end %>
 			</td>
-			<% 
+			<%
 				complement = "#FFF"
 				if !presence.team.nil?
 					complement = presence.team.rgb
