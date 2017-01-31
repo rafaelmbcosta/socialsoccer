@@ -20,7 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-content:
+  content:
     layout_title: 'Social Soccer'
     reports:
       titles:
@@ -33,12 +33,14 @@ content:
         main: 'Social Soccer'
         head: 'Social Soccer'
         player: 'Showing '
+        matches: 'Matches from season '
       matches_played: 'Matches played'
       goals_per_match: 'Gols per match'
       goal_average: 'Goal average'
       best_team: 'Best team'
       worst_team: 'Worst team'
       docket: 'Docket'
+      docket_not_found: 'No docket found'
       player: 'Player'
       players: 'Players'
       goals: 'Goals'
