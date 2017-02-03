@@ -8,7 +8,7 @@
 		color: #700000;
 		vertical-align: middle;
 		padding: 5px;
-	} 
+	}
 	.data_player dd{
 		vertical-align: middle;
 		padding: 5px;
@@ -41,7 +41,10 @@
 	<%= "class=active" %>
 <% end %>
 
-
+<br/>
+<div class="text-center top-text">
+		<%= t('content.reports.titles.current_season') %> <%= select_tag "season", options_from_collection_for_select( Season.all, "id", "id", @season.id), id: 'season_select' %>
+</div>
 <br/>
 
 <div class="profile">
@@ -147,5 +150,9 @@
 	            data: <%= @matches_played.collect{|mp| mp.goals} %>
 	        }]
 	    });
+	});
+  $("#season_select").change(function(){
+		var season = $("#season_select").val();
+		window.location.href = '/reports/player/<%= @player.id %>'+'?season='+season;
 	});
 </script>

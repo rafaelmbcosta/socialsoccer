@@ -1,6 +1,5 @@
 class ReportsController < ApplicationController
 	def top_strikers
-		# raise params.inspect
 		@season = params["id"] ? Season.find(params["id"]) : Season.last
 	  @goals = @season.goals
 		@matches = @season.matches.size
@@ -33,17 +32,19 @@ class ReportsController < ApplicationController
 	end
 
 	def players
-		presences = Presence.where("presence is true").joins(:player).group_by{|presence| presence.player_id}
-		presences = presences.collect{|k,v| [Player.find(k), v.size]}
-		@presences = presences.sort_by{|a| a[1]}.reverse
+		@season = params["id"] ? Season.find(params["id"]) : Season.last
+		@presences = Player.players_by_season(@season.id)
+		@presences = @presences.sort_by{|hash| hash["matches"]}.reverse
 	end
 
 	def player
+		@season = params["season"] ? Season.find(params["season"]) : Season.last
 		@best_team = []
 		@best_match = nil
 		@player = Player.find(params["id"])
-		@matches = Presence.all
-		@matches_played = @matches.where("player_id = ? and presence is true", @player.id).order('id asc')
+		@matches_played = Presence.where("player_id = ? and presence is true", @player.id).joins(:match).where("season_id = ?", @season.id).order('id asc')
+		# @matches = Presence.where("season_id = ?",)
+		# @matches_played = @matches.where("player_id = ? and presence is true", @player.id).order('id asc')
 		@goals = @matches_played.sum(:goals)
 		@goals_match = (@goals/@matches_played.size.to_f).round(2)
 		@best_team = @player.best_team(@matches_played)

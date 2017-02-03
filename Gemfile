@@ -26,7 +26,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'devise'
+gem 'devise', '~> 4.2.0'
 # Use ActiveModel has_secure_password
 gem 'rails_12factor'
 # For AWS storage
@@ -58,9 +58,6 @@ group :development, :test do
   # Generate random data for factories
   gem "faker", "~> 1.6.3"
 
-  # Show test coverage of the aplication
-  gem "simplecov", "~> 0.10.0", require: false
-
   # Used in rspec tests
   gem "rspec-its"
 
@@ -82,4 +79,7 @@ end
 group :test do
   # Mock and stub methods
   gem 'webmock', '~> 1.21.0'
+
+  # Show test coverage of the aplication
+  gem "simplecov"
 end
