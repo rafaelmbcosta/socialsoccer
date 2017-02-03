@@ -1,6 +1,10 @@
 <% content_for :players do %>
 	<%= "class=active" %>
 <% end %>
+<br/>
+<div class="text-center top-text">
+		<%= t('content.reports.titles.current_season') %> <%= select_tag "season", options_from_collection_for_select( Season.all, "id", "id", @season.id), id: 'season_select' %>
+</div>
 
 <h1 class="striker_h1"> <%= t('content.reports.players') %> </h1>
 
@@ -13,10 +17,17 @@
 	<tbody>
 	<% @presences.each do |presence| %>
 		<tr>
-			<td> <%= player_name(presence[0]) %></td>
-			<td> <%= presence[1] %></td>
-			<td> <%= link_to image_tag("player.png"), "/reports/player/#{presence[0].id}" %></td>
+			<td> <%= player_name(presence["player"]) %></td>
+			<td> <%= presence["matches"] %></td>
+			<td> <%= link_to image_tag("player.png"), "/reports/player/#{presence["player"].id}", { class: "player_#{presence["player"].id}" }%></td>
 		</tr>
 	<% end %>
 	</tbody>
 </table>
+
+<script>
+  $("#season_select").change(function(){
+		var season = $("#season_select").val();
+		window.location.href = '/reports/players/'+season;
+	});
+</script>

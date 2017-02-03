@@ -66,6 +66,39 @@ RSpec.describe Player, :type => :model do
       end
     end
 
+    describe "Scope players_by_season(season_id)" do
+
+      before do
+        @first_player = FactoryGirl.create(:player)
+        @second_player = FactoryGirl.create(:player)
+
+        @first_season = FactoryGirl.create(:season)
+        @second_season = FactoryGirl.create(:season)
+
+        @first_season.matches << FactoryGirl.create_list(:match, 5 , { season_id: @first_season.id })
+        @second_season.matches << FactoryGirl.create_list(:match, 5 , { season_id: @second_season.id })
+
+        @first_season.matches[1..2].each do |match|
+          FactoryGirl.create(:presence, match: match, player: @first_player )
+          FactoryGirl.create(:presence, match: match, player: @second_player )
+        end
+        FactoryGirl.create(:presence, match: @first_season.matches[3], player: @second_player )
+
+        @second_season.matches[1..3].each do |match|
+          FactoryGirl.create(:presence, match: match, player: @first_player )
+          FactoryGirl.create(:presence, match: match, player: @second_player )
+        end
+        FactoryGirl.create(:presence, match: @second_season.matches[4], player: @second_player )
+      end
+
+      it "should list players and the number of matches on that season" do
+        expect(Player.players_by_season(@first_season)).to include({"player" => @first_player, "matches" => 2})
+        expect(Player.players_by_season(@first_season)).to include({"player" => @second_player, "matches" => 3})
+        expect(Player.players_by_season(@second_season)).to include({"player" => @first_player, "matches" => 3})
+        expect(Player.players_by_season(@second_season)).to include({"player" => @second_player, "matches" => 4})
+      end
+    end
+
     describe "Scope best_team(matches)" do
       it "must group teams that scored the most and less" do
         player = FactoryGirl.create(:player)

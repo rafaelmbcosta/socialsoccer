@@ -26,6 +26,13 @@ class Player < ActiveRecord::Base
     return !presence.empty?
   end
 
+  def self.players_by_season(season_id)
+    season = Season.find(season_id)
+    presences = season.presences.where("presence is true").joins(:player).group_by{|presence| presence.player}
+    presences = presences.collect{|k,v| { "player" => k, "matches" => v.size}}
+    return presences
+  end
+
   def payed_match(match_id)
     presence = Presence.where("match_id = #{match_id} and player_id = #{self.id} and payed is true")
     return !presence.empty?
