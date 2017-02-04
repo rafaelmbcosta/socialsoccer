@@ -7,7 +7,7 @@
 <% else %>
   <ul>
     <% @matches.reverse.each do |match| %>
-    	<li> <%= link_to "RACHA #{match.id} - Racha do dia #{match.date.strftime('%d/%m/%Y')}", 
+    	<li> <%= link_to "RACHA #{match.id} - Racha do dia #{l(match.date)}", 
       	new_match_presence_url(id: match.id) %> </li>
     <% end %>
   </ul>

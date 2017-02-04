@@ -20,6 +20,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  devise:
+    password: 'Password'
+    remember_me: 'Remember me?'
+    links:
+      sign_in: "Sign in"
+      sign_out: "Sign out"
   content:
     layout_title: 'Social Soccer'
     reports:

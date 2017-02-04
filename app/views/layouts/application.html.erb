@@ -14,11 +14,13 @@
 <body>
 <header>
   <div class="gradient-primary">
-    <% if user_signed_in? %>
-      <div class="logout">
+    <div class="logout">
+      <% if user_signed_in? %>
         <%= link_to "Logout", destroy_user_session_path, :method => :delete %>
-      </div>
-    <% end %>
+      <% else %>
+        <%= link_to t('devise.links.sign_in'), new_user_session_path %>
+      <% end %>
+    </div>
     <div class="text-title"> <%= t('content.reports.titles.main') %></div>
     <% if user_signed_in? %>
       <div class="logado"> <%= current_user.email %> </div>
@@ -55,7 +57,12 @@
         </div>
       </div>
     <% end %>
-    <div class="col-lg-8">
+    <div class="col-md-10">
+      <% flash.each do |key, message| %>
+        <div class="text-center alert alert-<%= key == 'notice' ? 'success' : 'danger' %>">
+          <%= message %>
+        </div>
+      <% end %>
       <%= yield %>
     </div>
   </div><!--/row-->

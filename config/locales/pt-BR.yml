@@ -1,5 +1,7 @@
 pt-BR:
   devise:
+    password: 'Senha'
+    remember_me: 'Memorizar senha?'
     failure:
       already_authenticated: "Você já está logado."
       inactive: "Sua conta ainda não foi ativada."
@@ -15,6 +17,9 @@ pt-BR:
       already_signed_out: "Saiu com sucesso."
     registrations:
       signed_up: "Login efetuado com sucesso."
+    links:
+      sign_in: "Entrar"
+      sign_out: "Sair"
   content:
     layout_title: 'Racha do Pio XII'
     reports:
