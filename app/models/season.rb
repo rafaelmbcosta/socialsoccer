@@ -15,7 +15,7 @@ class Season < ActiveRecord::Base
 			assists = 0
 			presence_array.each do |presence|
 				soma += presence.goals
-				soma += presence.assist
+				assists += presence.assist
 			end
 			player["goals"] = soma
 			player["assist"] = assists
