@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'presences/confirmed/:id/:player_id' => 'presences#confirmed', as: :confirmed
   post 'presences/team_played' => 'presences#team_played', as: :team_played
   post 'presences/manage_goals' => 'presences#manage_goals', as: :manage_goals
+  post 'presences/manage_assists' => 'presences#manage_assists', as: :manage_assists
 
   get 'reports/top_strikers' => 'reports#top_strikers'
   get 'reports/top_strikers/:id' => 'reports#top_strikers'

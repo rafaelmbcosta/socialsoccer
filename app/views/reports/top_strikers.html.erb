@@ -39,12 +39,14 @@
 	<thead>
 		<th> <%= t('content.reports.player') %> </th>
 		<th> <%= t('content.reports.goals') %> </th>
+		<th> <%= t('content.reports.assist') %> </th>
 	</thead>
 	<tbody>
 	<% @result.each do |result| %>
 		<tr>
 			<td> <%= link_to "#{result['name']}", "/reports/player/#{result['id']}" %></td>
 			<td> <b><%= result["goals"] %></b> </td>
+			<td> <b><%= result["assist"] %></b> </td>
 		</tr>
 	<% end %>
 	</tbody>

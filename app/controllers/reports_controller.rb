@@ -46,6 +46,7 @@ class ReportsController < ApplicationController
 		# @matches = Presence.where("season_id = ?",)
 		# @matches_played = @matches.where("player_id = ? and presence is true", @player.id).order('id asc')
 		@goals = @matches_played.sum(:goals)
+		@assist = @matches_played.sum(:assist)
 		@goals_match = (@goals/@matches_played.size.to_f).round(2)
 		@best_team = @player.best_team(@matches_played)
 	end

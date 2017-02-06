@@ -92,10 +92,19 @@ class PresencesController < ApplicationController
   end
 
   def manage_goals
-    #RuntimeError "id"=>"1", "player_id"=>"1", "goals"=>"0", "operation"=>"plus"
     presence = Player.presence(params["player_id"], params["id"] )
     presence.goals = params["goals"].to_i + 1 if params["operation"] == "plus"
     presence.goals = params["goals"].to_i - 1 if params["operation"] == "minus"
+    presence.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def manage_assists
+    presence = Player.presence(params["player_id"], params["id"] )
+    presence.assist = params["assists"].to_i + 1 if params["operation"] == "plus"
+    presence.assist = params["assists"].to_i - 1 if params["operation"] == "minus"
     presence.save
     respond_to do |format|
       format.js

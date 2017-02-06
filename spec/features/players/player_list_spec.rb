@@ -8,7 +8,7 @@ RSpec.feature "Listing Players" do
 
   scenario "User should be redirected to login if unauthorized" do
     visit players_url
-    expect(page).to have_content('Log in')
+    expect(page).to have_content(I18n.t('devise.links.sign_in'))
     expect(page).not_to have_content(I18n.t('helpers.titles.list', :model => Player.model_name.human.titleize))
     expect(current_path).to eq(new_user_session_path)
   end

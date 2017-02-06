@@ -44,6 +44,7 @@ pt-BR:
       player: 'Jogador'
       players: 'Jogadores'
       goals: 'Gols'
+      assist: 'Assistências'
       team: 'Time'
       matches: 'Partidas'
       goal_average: 'Media de gols'

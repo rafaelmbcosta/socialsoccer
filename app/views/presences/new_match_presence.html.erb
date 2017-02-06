@@ -56,22 +56,16 @@
   <table class="table table-striped">
     <thead>
       <th> Jogador </th>
-      <th> Confirmou </th>
       <th> Jogou </th>
       <th> Pagou </th>
       <th> Gols </th>
+      <th> Assistencias</th>
       <th> Time </th>
     </thead>
     <tbody>
       <% @players.order(:name).each do |player| %>
         <tr>
           <td> <b><%= player.name %> <% unless player.nickname.nil? %> <%= "( #{player.nickname} )" %></b><% end  %></td>
-          <td>
-            <% if player.confirmed_match(@match.id) %>
-              <p><%= image_tag "confirmed.png" %></p>
-            <% else %>
-              <%= link_to "Confirmar", "/presences/confirmed/#{@match.id}/#{player.id}", class: "btn btn-info confirm" , player_id: player.id, id: @match.id %> </td>
-            <% end %>
           <td>
             <% if player.played_match(@match.id) %>
               <p><%= image_tag "played.png" %></p>
@@ -92,6 +86,15 @@
                 <%= link_to image_tag("minus.png", class: "small"), "#", player_id: player.id, goals: player.goals_match(@match.id), id: @match.id, class: "minus minus_#{player.id}", remote: true %>
                 <span class="gol"><span class="numeral" id="goal_<%= player.id %>"><%= player.goals_match(@match.id) %></span></span>
                 <%= link_to image_tag("plus.png", class: "small"), "#", player_id: player.id, goals: player.goals_match(@match.id), id: @match.id, class: "plus plus_#{player.id}" %>
+              </p>
+            <% end %>
+          </td>
+          <td>
+            <% if player.played_match(@match.id) %>
+              <p>
+                <%= link_to image_tag("minus.png", class: "small"), "#", player_id: player.id, assists: player.assists_match(@match.id), id: @match.id, class: "assists_minus assists_minus_#{player.id}", remote: true %>
+                <span class="assists"><span class="numeral" id="assists_<%= player.id %>"><%= player.assists_match(@match.id) %></span></span>
+                <%= link_to image_tag("plus.png", class: "small"), "#", player_id: player.id, assists: player.assists_match(@match.id), id: @match.id, class: "assists_plus assists_plus_#{player.id}" %>
               </p>
             <% end %>
           </td>
@@ -135,6 +138,28 @@
     $('.minus_'+player_id).attr("goals",parseInt(goals)+1+"" );
   });
 
+  $(".assists_plus").click(function(){
+    var data;
+    var match_id;
+    var player_id;
+    var assists;
+    assists = this.getAttribute("assists");
+    player_id = this.getAttribute("player_id");
+    match_id = this.getAttribute("id");
+    $.ajax({
+        type: "POST",
+        url: '/presences/manage_assists',
+        data: {id: match_id, player_id: player_id, assists: assists, operation: 'plus'},
+        dataType: "JSON",
+        success: function(data) {
+            console.log(data)
+        }
+    });
+    $('#assists_'+player_id).text(parseInt(assists)+1);
+    $('.assists_plus_'+player_id).attr("assists",parseInt(assists)+1+"" );
+    $('.assists_minus_'+player_id).attr("assists",parseInt(assists)+1+"" );
+  });
+
   $(".team").click(function(){
     var match_id;
     var data;
@@ -155,7 +180,6 @@
     });
     $('.team_'+player_id).removeClass("chosen")
     $('.team_'+player_id+'_'+team_id).addClass("chosen")
-
   });
 
   $(".minus").click(function(){
@@ -178,5 +202,27 @@
     $('#goal_'+player_id).text(parseInt(goals)-1);
     $('.minus_'+player_id).attr("goals",parseInt(goals)-1+"" );
     $('.plus_'+player_id).attr("goals",parseInt(goals)-1+"" );
+  });
+
+  $(".assists_minus").click(function(){
+    var data;
+    var match_id;
+    var player_id;
+    var assists;
+    assists = this.getAttribute("assists");
+    player_id = this.getAttribute("player_id");
+    match_id = this.getAttribute("id");
+    $.ajax({
+        type: "POST",
+        url: '/presences/manage_assists',
+        data: {id: match_id, player_id: player_id, assists: assists, operation: 'minus'},
+        dataType: "JSON",
+        success: function(data) {
+            console.log(data)
+        }
+    });
+    $('#assists_'+player_id).text(parseInt(assists)-1);
+    $('.assists_plus_'+player_id).attr("assists",parseInt(assists)-1+"" );
+    $('.assists_minus_'+player_id).attr("assists",parseInt(assists)-1+"" );
   });
 </script>
