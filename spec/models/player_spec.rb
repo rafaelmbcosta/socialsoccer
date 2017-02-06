@@ -39,6 +39,18 @@ RSpec.describe Player, :type => :model do
       end
     end
 
+    describe "Scope 'assists_match(match_id)'" do
+      subject(:player) { FactoryGirl.create(:player) }
+      it 'Return 0 unless the played have scored on that match' do
+        expect(player.assists_match(finished_match.id)).to eq(0)
+      end
+
+      it "Return the number of assists the player scored on that match" do
+        presence = FactoryGirl.create(:presence,  player_id: player.id, match_id: finished_match.id, assist: 2, presence: true)
+        expect(player.assists_match(finished_match.id)).to eq(2)
+      end
+    end
+
     describe "Scope payed_match(match_id)" do
       it "Return true or false if the player payed the match" do
         player = FactoryGirl.create(:player)

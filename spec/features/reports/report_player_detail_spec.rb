@@ -10,7 +10,7 @@ RSpec.feature "Player detail" do
     @players = FactoryGirl.build_list(:player, 3)
     @season.matches.each do |match|
       @players.each do |player|
-        match.presences << FactoryGirl.build(:presence, player: player, goals: 1)
+        match.presences << FactoryGirl.build(:presence, player: player, goals: 1, assist: 3)
       end
     end
     @season.save
@@ -36,7 +36,8 @@ RSpec.feature "Player detail" do
     player = @players.first
     visit reports_player_path(player.id)
     expect(page).to have_content(player.name)
-    expect(page).to have_content(4)
+    expect(page).to have_content(4) # goals
+    expect(page).to have_content(12) # assists
   end
 
   scenario "User see details of the player from past seasons" do
@@ -49,9 +50,6 @@ RSpec.feature "Player detail" do
       match.presences << FactoryGirl.build(:presence, player: player, goals: 2)
     end
     @new_season.save
-
-    expect(page).to have_content(player.name)
-    expect(page).to have_content(8)
 
     visit reports_player_path(id: player.id, season: @season.id)
     expect(page).to have_content(player.name)

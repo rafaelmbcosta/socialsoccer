@@ -49,6 +49,7 @@ en:
       docket_not_found: 'No docket found'
       player: 'Player'
       players: 'Players'
+      assist: 'Assist'
       goals: 'Goals'
       team: 'Team'
       matches: 'Matches'

@@ -21,6 +21,11 @@ class Player < ActiveRecord::Base
     presence.empty? ? (return 0) : (return presence.first.goals)
   end
 
+  def assists_match(match_id)
+    presence = Presence.where("match_id = #{match_id} and player_id = #{self.id} and presence is true")
+    presence.empty? ? (return 0) : (return presence.first.assist)
+  end
+
   def played_match(match_id)
     presence = Presence.where("match_id = #{match_id} and player_id = #{self.id} and presence is true")
     return !presence.empty?
