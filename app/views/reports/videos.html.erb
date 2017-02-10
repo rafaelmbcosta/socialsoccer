@@ -3,6 +3,16 @@
 		width: 600px;
 		margin: 20px auto;
 	}
+	a img{
+		width: 64px;
+	}
+
+	iframe {
+		margin: 20px;
+	}
+	.modal-dialog .modal-content{
+		background-color: #000;
+	}
 </style>
 
 <% content_for :videos do %>
@@ -11,6 +21,43 @@
 
 <h1> <%= t('content.reports.titles.videos') %> </h1>
 
-<% @videos.reverse.each do |video| %>
-	<div class="video"> <%=raw video.url %> </div>
-<% end %>
+<table class="table table-bordered table-strikers">
+	<thead>
+		<th> <%= Video.human_attribute_name(:description) %> </th>
+		<th> <%= Video.human_attribute_name(:date) %> </th>
+		<th> Link </th>
+	</thead>
+	<tbody>
+		<% @videos.reverse.each do |video| %>
+			<tr>
+				<td> <%= video.description %> </td>
+				<td> <%=l video.date %> </td>
+				<td> <%= link_to image_tag("youtube.png"), "#", {
+					 		class: "video_#{video.id}",
+							name: "video_#{video.id}",
+							"data-video": video.url,
+							"data-toggle": "modal",
+							"data-target": "#video_show"} %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<div class="modal" id="video_show" tabindex="0" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+				<iframe class=".video_url" width="560" height="315" src="#" frameborder="0" allowfullscreen></iframe>
+		</div>
+	</div>
+</div>
+
+<script>
+	$('#video_show').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var recipient = button.data('video') // Extract info from data-* attributes
+		// // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		// // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		var modal = $(this)
+		modal.find('iframe').attr('src', recipient)
+	})
+</script>

@@ -51,6 +51,7 @@ pt-BR:
       goals_made_by: 'Gols de '
       data: 'Data'
       details: 'Detalhes'
+      watch: 'Assista'
     menu:
       strikers: 'Artilharia'
       videos: 'Videos'
@@ -84,6 +85,11 @@ pt-BR:
       season: "Temporada"
       presence: "Presença"
     attributes:
+      video:
+        url: "Endereço"
+        match_id: "Partida"
+        descrition: "Descrição"
+        date: "Data"
       player:
         name: "Nome"
         nickname: "Apelido"
