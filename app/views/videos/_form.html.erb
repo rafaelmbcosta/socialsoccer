@@ -20,7 +20,18 @@
     <div class="col-lg-10">
       <%= f.text_field :url, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:url) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :description, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :date, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.date_select :date, {:order => [:day, :month, :year]} %>
+    </div>
   </div>
 
   <div class="form-group">
