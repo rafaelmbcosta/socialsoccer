@@ -2,6 +2,8 @@
 
 FactoryGirl.define do
   factory :video do
-    url "MyString"
+    url         { Faker::Internet.url }
+    description { Faker::Lorem.sentence }
+    match_id    { nil }
   end
 end
