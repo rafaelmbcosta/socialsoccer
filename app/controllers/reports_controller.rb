@@ -28,7 +28,7 @@ class ReportsController < ApplicationController
 	end
 
 	def videos
-		@videos = Video.all
+		@videos = Video.all.order('date asc')
 	end
 
 	def players
