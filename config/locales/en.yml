@@ -56,6 +56,7 @@ en:
       goal_average: 'Goal average'
       goals_made_by: 'Gols made by '
       data: 'Date'
+      description: 'Date'
       details: 'Details'
       watch: 'Watch'
     menu:

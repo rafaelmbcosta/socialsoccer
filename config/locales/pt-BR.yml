@@ -88,7 +88,7 @@ pt-BR:
       video:
         url: "Endereço"
         match_id: "Partida"
-        descrition: "Descrição"
+        description: "Descrição"
         date: "Data"
       player:
         name: "Nome"
