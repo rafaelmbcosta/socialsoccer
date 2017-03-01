@@ -18,7 +18,7 @@
         <td><%= link_to player.id, player_path(player) %></td>
         <td><%= player.name %></td>
         <td><%= player.nickname %></td>
-        <td><%= image_tag(player.avatar.thumb.url) %></td>
+        <td><%= image_tag(player.avatar.thumb.url)  unless player.avatar.thumb.blank? %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_player_path(player), :class => 'btn btn-default btn-xs' %>
