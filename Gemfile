@@ -2,11 +2,11 @@ source 'http://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.3'
+gem 'rails', '~> 5.0.1'
 # Use Postgres as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
-gem 'puma'
+gem 'puma', '~> 3.0'
 # para o deploy
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -49,8 +49,8 @@ group :development, :test do
   # Code quality
   gem 'rubocop', require: false
 
-  # Automated tests in general
-  gem "rspec-rails", "~> 3.4.2"
+  # Rspec for rails 5
+  gem 'rspec-rails', '~> 3.5'
 
   # Mock rails models
   gem "factory_girl_rails", "~> 4.4.1"
@@ -77,9 +77,6 @@ group :development do
 end
 
 group :test do
-  # Mock and stub methods
-  gem 'webmock', '~> 1.21.0'
-
   # Show test coverage of the aplication
   gem "simplecov"
 end
