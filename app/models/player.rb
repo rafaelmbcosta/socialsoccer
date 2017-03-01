@@ -1,6 +1,6 @@
 require 'carrierwave/orm/activerecord'
 
-class Player < ActiveRecord::Base
+class Player < ApplicationRecord
 
   has_many :presences
   has_many :matches, through: :presences

@@ -1,4 +1,4 @@
-class Match < ActiveRecord::Base
+class Match < ApplicationRecord
   has_many :presences
   belongs_to :season
   mount_uploader :sumula_link, SumulaUploader
