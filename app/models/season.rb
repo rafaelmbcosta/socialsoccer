@@ -1,4 +1,4 @@
-class Season < ActiveRecord::Base
+class Season < ApplicationRecord
 	has_many :matches
 	has_many :presences, through: :matches
 
