@@ -10,6 +10,7 @@ class Season < ApplicationRecord
 			p = Player.find(player_id)
 			player["id"] = p.id
 			player["name"] = p.name
+			player["avatar"] = p.avatar
 			player["name"] += " (#{p.nickname})" unless (p.nickname.nil? or p.nickname.blank?)
 			soma = 0
 			assists = 0
