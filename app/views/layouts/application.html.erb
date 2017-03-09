@@ -5,69 +5,60 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <style>
-    .adm-container{
-      margin-top: 40px;
-    }
-  </style>
 </head>
 <body>
-<header>
-  <div class="gradient-primary">
-    <div class="logout">
-      <% if user_signed_in? %>
-        <%= link_to "Logout", destroy_user_session_path, :method => :delete %>
-      <% else %>
-        <%= link_to t('devise.links.sign_in'), new_user_session_path %>
-      <% end %>
-    </div>
-    <div class="text-title"> <%= t('content.reports.titles.main') %></div>
-    <% if user_signed_in? %>
-      <div class="logado"> <%= current_user.email %> </div>
-    <% end %>
-  </div>
-  <div class="main-nav-bar">
-    <div class="container-nav">
-      <ul class="nav navbar-nav">
-        <li><a <%= yield :top_strikers %> href="/"><%= t('content.menu.strikers') %></a> </li>
-        <li><a <%= yield :videos %> href="/reports/videos"><%= t('content.menu.videos') %></a> </li>
-        <li><a <%= yield :matches %> href="/reports/matches"><%= t('content.menu.matches') %></a></li>
-        <li><a <%= yield :players %> href="/reports/players"><%= t('content.menu.players') %></a></li>
-        <li><a <%= yield :seasons %> href="#"><%= t('content.menu.seasons') %></a></li>
-      </ul>
-    </div>
-  </div>
-</header>
-<div class="container">
-  <div class="row">
-    <% if user_signed_in? %>
-      <div class="col-lg-2">
-        <div class="list-group adm-container">
-          <div class="list-group-item active">
-            Admin Menu
+
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#"><%= t('content.reports.titles.main') %></a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav mr-auto">
+        <a href="/" class="nav-item nav-link" ><%= t('content.menu.strikers') %></a>
+        <a href="/reports/matches" class="nav-item nav-link"><%= t('content.menu.matches') %></a>
+        <a href="/reports/players" class="nav-item nav-link"><%= t('content.menu.players') %></a>
+        <% if user_signed_in? %>
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle btn btn-primary" style="color: #FFF;" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin Menu
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a href="/players" class="dropdown-item"><%= t('content.menu.players') %></a>
+              <a href="/matches" class="dropdown-item"><%= t('content.menu.matches') %></a>
+              <a href="/seasons" class="dropdown-item"><%= t('content.menu.seasons') %></a>
+              <a href="/videos" class="dropdown-item"><%= t('content.menu.videos') %></a>
+              <a href="/presences" class="dropdown-item"><%= t('content.menu.report_goals') %></a>
+            </div>
           </div>
-          <a href="/players" class="list-group-item"><%= t('content.menu.players') %></a>
-          <a href="/matches" class="list-group-item"><%= t('content.menu.matches') %></a>
-          <a href="/seasons" class="list-group-item"><%= t('content.menu.seasons') %></a>
-          <a href="/videos" class="list-group-item"><%= t('content.menu.videos') %></a>
-          <ul class="list-group">
-          <div class="list-group-item">
-            <span class="badge" style="vertical-align: center;"><%= open_matches %></span>
-            <a href="/presences" style="background: transparent;"><%= t('content.menu.report_goals') %></a>
-          </div>
-        </div>
+          <% end %>
+       </div>
       </div>
-    <% end %>
-    <div class="col-md-10">
+      <div class="logout">
+        <% if user_signed_in? %>
+          <%= link_to "Logout", destroy_user_session_path, :method => :delete, class: "btn btn-outline-primary" %>
+        <% else %>
+          <%= link_to t('devise.links.sign_in'), new_user_session_path, class: "btn btn-outline-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+
+  <div class="row">
+    <div class="container-fluid">
       <% flash.each do |key, message| %>
         <div class="text-center alert alert-<%= key == 'notice' ? 'success' : 'danger' %>">
           <%= message %>
         </div>
       <% end %>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
       <%= yield %>
     </div>
-  </div><!--/row-->
-</div>
+  </div>
 
 </body>
 </html>

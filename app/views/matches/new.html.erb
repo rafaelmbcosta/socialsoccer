@@ -1,5 +1,8 @@
-<h1><%= t('helpers.titles.new', model: @match.model_name.human.titleize) %></h1>
+<div class="col-md-8 offset-md-2 jumbotron">
+  <h1 class="text-center"><%= t('helpers.titles.new', model: @match.model_name.human.titleize) %></h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Back', matches_path %>
+  <br/>
+  <%= link_to 'Back', matches_path, class: "btn btn-primary" %>
+</div>

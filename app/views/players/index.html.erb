@@ -1,38 +1,41 @@
 <%- model_class = Player -%>
-<div class="page-header">
-  <h1><%=t 'helpers.titles.list', :model => model_class.model_name.human.titleize %></h1>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:nickname) %></th>
-      <th><%= model_class.human_attribute_name(:avatar) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @players.each do |player| %>
-      <tr>
-        <td><%= link_to player.id, player_path(player) %></td>
-        <td><%= player.name %></td>
-        <td><%= player.nickname %></td>
-        <td><%= image_tag(player.avatar.thumb.url)  unless player.avatar.thumb.blank? %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_player_path(player), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      player_path(player),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<%= link_to t('helpers.links.new'),
-            new_player_path,
-            :class => 'btn btn-primary' %>
+
+<div class="col-md-12 jumbotron">
+  <h1 class="text-center"><%=t 'helpers.titles.list', :model => model_class.model_name.human.titleize %></h1>
+  <br/>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:id) %></th>
+        <th><%= model_class.human_attribute_name(:name) %></th>
+        <th><%= model_class.human_attribute_name(:nickname) %></th>
+        <th><%= model_class.human_attribute_name(:avatar) %></th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @players.each do |player| %>
+        <tr>
+          <td><%= link_to player.id, player_path(player) %></td>
+          <td><%= player.name %></td>
+          <td><%= player.nickname %></td>
+          <td><%= image_tag(player.avatar.thumb.url)  unless player.avatar.thumb.blank? %></td>
+          <td>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        edit_player_path(player), :class => 'btn btn-primary btn-xs' %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        player_path(player),
+                        :method => :delete,
+                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                        :class => 'btn btn-xs btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to t('helpers.links.new'),
+              new_player_path,
+              :class => 'btn btn-primary' %>
+</div>

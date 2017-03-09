@@ -1,119 +1,82 @@
-<style>
-  td {
-    vertical-align: middle !important;
-    text-align: center;
-  }
-  p, th {
-    text-align: center;
-    vertical-align: middle !important;
-  }
-  a:visited { color: #FFF; }
-  .teams{
-    height: 27px;
-    width: 180px;
-    margin: 0 auto 0 auto;
-  }
-  .team {
-    width: 35px;
-    height: 35px;
-    margin-left: 1px;
-    float: left;
-  }
-  img{
-    width: 35px;
-    height: 35px;
-  }
-  .chosen{
-    border: 4px solid red;
-  }
+<div class="col-md-8 offset-md-2 jumbotron">
+  <h1 class="text-center"> Presença de jogadores por partida </h1>
+  <h3 class="text-center"> Partida dia: <%= @match.date.strftime('%d/%m/%Y') %></h3>
 
-  .small{
-    margin: 5px;
-    width: 25px;
-    height: 25px;
-  }
-  .numeral{
-    font-weight: bold;
-    font-size: 20px;
-    margin-top: 2px;
-  }
-</style>
-
-<h1> Presença de jogadores por partida </h1>
-<h3> Partida dia: <%= @match.date.strftime('%d/%m/%Y') %></h3>
-
-<section class="search-form">
   <%= form_for "search", method: :get, url: new_match_presence_path  do |f| %>
     <div class="input-group input-group-lg">
-    <%= f.text_field :keywords, class: "form-control input-lg"  %>
-    <span class="input-group-btn">
-      <%= f.submit "Search", class: "btn btn-danger btn-lg" %>
-    </span>
+      <%= f.text_field :keywords, class: "form-control input-lg"  %>
+      <span class="input-group-btn">
+        <%= f.submit "Search", class: "btn btn-danger btn-lg" %>
+      </span>
+    </div>
   <% end %>
-</section>
+</div>
+<br/>
 
-<% unless @players.empty? %>
-  <table class="table table-striped">
-    <thead>
-      <th> Jogador </th>
-      <th> Jogou </th>
-      <th> Pagou </th>
-      <th> Gols </th>
-      <th> Assistencias</th>
-      <th> Time </th>
-    </thead>
-    <tbody>
-      <% @players.order(:name).each do |player| %>
-        <tr>
-          <td> <b><%= player.name %> <% unless player.nickname.nil? %> <%= "( #{player.nickname} )" %></b><% end  %></td>
-          <td>
-            <% if player.played_match(@match.id) %>
-              <p><%= image_tag "played.png" %></p>
-            <% else %>
-             <%= link_to "Jogou", "/presences/played/#{@match.id}/#{player.id}?keywords=#{@search_term}", class: "btn btn-success play", player_id: player.id, id: @match.id %>
-            <% end %>
-          </td>
-          <td>
-            <% if player.payed_match(@match.id) %>
-              <p><%= image_tag "payed.png" %></p>
-            <% else %>
-              <%= link_to "Pagar", "/presences/payed/#{@match.id}/#{player.id}", class: "btn btn-warning confirm" , player_id: player.id, id: @match.id %> </td>
-              <% end %>
-          </td>
-          <td>
-            <% if player.played_match(@match.id) %>
-              <p>
-                <%= link_to image_tag("minus.png", class: "small"), "#", player_id: player.id, goals: player.goals_match(@match.id), id: @match.id, class: "minus minus_#{player.id}", remote: true %>
-                <span class="gol"><span class="numeral" id="goal_<%= player.id %>"><%= player.goals_match(@match.id) %></span></span>
-                <%= link_to image_tag("plus.png", class: "small"), "#", player_id: player.id, goals: player.goals_match(@match.id), id: @match.id, class: "plus plus_#{player.id}" %>
-              </p>
-            <% end %>
-          </td>
-          <td>
-            <% if player.played_match(@match.id) %>
-              <p>
-                <%= link_to image_tag("minus.png", class: "small"), "#", player_id: player.id, assists: player.assists_match(@match.id), id: @match.id, class: "assists_minus assists_minus_#{player.id}", remote: true %>
-                <span class="assists"><span class="numeral" id="assists_<%= player.id %>"><%= player.assists_match(@match.id) %></span></span>
-                <%= link_to image_tag("plus.png", class: "small"), "#", player_id: player.id, assists: player.assists_match(@match.id), id: @match.id, class: "assists_plus assists_plus_#{player.id}" %>
-              </p>
-            <% end %>
-          </td>
-          <td>
+<div class="col-md-12 jumbotron presences">
+  <% unless @players.empty? %>
+    <table class="table table-striped">
+      <thead>
+        <th> Jogador </th>
+        <th> Jogou </th>
+        <th> Pagou </th>
+        <th> Gols </th>
+        <th> Assistencias</th>
+        <th> Time </th>
+      </thead>
+      <tbody>
+        <% @players.order(:name).each do |player| %>
+          <tr>
+            <td> <b><%= player.name %> <% unless player.nickname.nil? %> <%= "( #{player.nickname} )" %></b><% end  %></td>
+            <td>
               <% if player.played_match(@match.id) %>
-                <div class="teams">
-                  <% @teams.each do |team| %>
-                    <% (player.team_played(@match.id) == team.id) ? chosen = "chosen" : chosen = "" %>
-                    <%= link_to "", "#", player_id: player.id, team_id: team.id, id: @match.id, class: "team #{chosen} team_#{player.id} team_#{player.id}_#{team.id}", style: "background-color: #{team.rgb}" %>
-                    <% end %>
-                </div>
+                <%= image_tag "played.png" %>
+              <% else %>
+               <%= link_to "Jogou", "/presences/played/#{@match.id}/#{player.id}?keywords=#{@search_term}", class: "btn btn-success play", player_id: player.id, id: @match.id %>
               <% end %>
-          </td>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <h3> Não encontrado </h3>
-<% end %>
+            </td>
+            <td>
+              <% if player.payed_match(@match.id) %>
+                <p><%= image_tag "payed.png" %></p>
+              <% else %>
+                <%= link_to "Pagar", "/presences/payed/#{@match.id}/#{player.id}", class: "btn btn-warning confirm" , player_id: player.id, id: @match.id %> </td>
+                <% end %>
+            </td>
+            <td>
+              <% if player.played_match(@match.id) %>
+                <p>
+                  <%= link_to image_tag("minus.png", class: "small"), "#", player_id: player.id, goals: player.goals_match(@match.id), id: @match.id, class: "minus minus_#{player.id}", remote: true %>
+                  <span class="gol"><span class="numeral" id="goal_<%= player.id %>"><%= player.goals_match(@match.id) %></span></span>
+                  <%= link_to image_tag("plus.png", class: "small"), "#", player_id: player.id, goals: player.goals_match(@match.id), id: @match.id, class: "plus plus_#{player.id}" %>
+                </p>
+              <% end %>
+            </td>
+            <td>
+              <% if player.played_match(@match.id) %>
+                <p>
+                  <%= link_to image_tag("minus.png", class: "small"), "#", player_id: player.id, assists: player.assists_match(@match.id), id: @match.id, class: "assists_minus assists_minus_#{player.id}", remote: true %>
+                  <span class="assists"><span class="numeral" id="assists_<%= player.id %>"><%= player.assists_match(@match.id) %></span></span>
+                  <%= link_to image_tag("plus.png", class: "small"), "#", player_id: player.id, assists: player.assists_match(@match.id), id: @match.id, class: "assists_plus assists_plus_#{player.id}" %>
+                </p>
+              <% end %>
+            </td>
+            <td>
+                <% if player.played_match(@match.id) %>
+                  <div class="teams">
+                    <% @teams.each do |team| %>
+                      <% (player.team_played(@match.id) == team.id) ? chosen = "chosen" : chosen = "" %>
+                      <%= link_to "", "#", player_id: player.id, team_id: team.id, id: @match.id, class: "team #{chosen} team_#{player.id} team_#{player.id}_#{team.id}", style: "background-color: #{team.rgb}" %>
+                      <% end %>
+                  </div>
+                <% end %>
+            </td>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <h3> Não encontrado </h3>
+  <% end %>
+</div>
 
 <script>
   $(".plus").click(function(){

@@ -1,56 +1,50 @@
-<style>
-	a:hover{
-		background-color: #700000 !important;
-		color: #FFF !important;
-	}
-	.top-text{
-		color: #700000;
-		margin-top: 20px;
-	}
-</style>
-
 <% content_for :top_strikers do %>
 	<%= "class=active" %>
 <% end %>
 
-<div class="text-center top-text">
-		<%= t('content.reports.titles.current_season') %> <%= select_tag "season", options_from_collection_for_select( Season.all, "id", "id", @season.id), id: 'season_select' %>
+<div class="col-md-9 jumbotron text-center">
+	<h1 class="display-5"> <%= t('content.reports.titles.strikers') %>  </h1>
+	<% @result.each_with_index do |result, pos| %>
+			<div class="card text-center">
+				<div class="card-header">
+					<% if result["avatar"].blank? %>
+						<%= image_tag("profile_default", class: "card-img-top", style: "width: 30%; margin: 0px auto 0px auto;" ) %>
+					<% else %>
+						<%= image_tag(player.avatar.url, class: "card-img-top", style: "width: 30%; margin: 0px auto 0px auto;" ) %>
+					<% end %>
+				</div>
+				<div class="card-block">
+					<h4 class="card-title">  <%= "##{pos+1}" %> &nbsp; <%= result['name'] %> </h4>
+					<table class="table">
+						<thead>
+							<th class="text-center"> <big><%= t('content.reports.goals') %> </big></th>
+							<th class="text-center"> <big> <%= t('content.reports.assist') %> </big></th>
+						</thead>
+						<tbody>
+							<td><big><%= result["goals"] %></big></td>
+							<td><big><%= result["assist"] %></big></td>
+						</tbody>
+					</table>
+					<%= link_to t('content.reports.player_details'), "/reports/player/#{result['id']}", {class: "btn btn-outline-primary btn-block" }%>
+				</div>
+			</div>
+	<% end %>
 </div>
 
-<h1 class="striker_h1"> <%= t('content.reports.titles.overview') %> </h1>
+<div class="col-md-3">
+	<div class="jumbotron text-center">
+		<h3> <%= t('content.reports.titles.season') %> <h3>
+		<%= select_tag "season", options_from_collection_for_select( Season.all, "id", "id", @season.id), id: 'season_select', class: "form-control" %>
+	</div>
 
-<table class="table table-bordered table-report">
-	<thead>
-		<th> <%= t('content.reports.matches') %> </th>
-		<th> <%= t('content.reports.goals') %> </th>
-		<th> <%= t('content.reports.goal_average') %> </th>
-	</thead>
-	<tbody>
-		<tr>
-			<td> <%= @matches %> </td>
-			<td> <%= @goals %> </td>
-			<td> <%= (@goals/@matches.to_f).round(1) %> </td>
-		</tr>
-	</tbody>
-</table>
-
-<h1 class="striker_h1"> <%= t('content.reports.titles.strikers') %>  </h1>
-<table class="table table-bordered table-strikers">
-	<thead>
-		<th> <%= t('content.reports.player') %> </th>
-		<th> <%= t('content.reports.goals') %> </th>
-		<th> <%= t('content.reports.assist') %> </th>
-	</thead>
-	<tbody>
-	<% @result.each do |result| %>
-		<tr>
-			<td> <%= link_to "#{result['name']}", "/reports/player/#{result['id']}" %></td>
-			<td> <b><%= result["goals"] %></b> </td>
-			<td> <b><%= result["assist"] %></b> </td>
-		</tr>
-	<% end %>
-	</tbody>
-</table>
+	<div class="jumbotron text-center">
+		<h3> <%= t('content.reports.titles.overview') %> </h3>
+		<hr class="my-4">
+		<p> <big><%= t('content.reports.matches') %>:&nbsp; <b><%= @matches %></b></big> </p>
+		<p> <big><%= t('content.reports.goals') %>: &nbsp; <b><%= @goals %></b></big> </p>
+		<p> <big><%= t('content.reports.goal_average') %>: &nbsp; <b><%= (@goals/@matches.to_f).round(1) %></b></big></p>
+	</div>
+</div>
 
 <script>
   $("#season_select").change(function(){

@@ -46,9 +46,10 @@ pt-BR:
       goals: 'Gols'
       assist: 'Assistências'
       team: 'Time'
+      player_details: "Detalhes do jogador"
       matches: 'Partidas'
-      goal_average: 'Media de gols'
-      goals_made_by: 'Gols de '
+      goal_average: 'Media'
+      goals_made_by: 'Gols'
       data: 'Data'
       details: 'Detalhes'
       watch: 'Assista'

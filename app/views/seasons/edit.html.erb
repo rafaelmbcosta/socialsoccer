@@ -1,6 +1,8 @@
-<h1>Editing Season</h1>
+<div class="col-md-8 offset-md-2 jumbotron">
+  <h1 class="text-center">Editing Season</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @season %> |
-<%= link_to 'Back', seasons_path %>
+  <%= render 'form' %>
+  <br/>
+  <%= link_to 'Show', @season, class: 'btn btn-primary' %>
+  <%= link_to 'Back', seasons_path, class: 'btn btn-primary' %>
+</div>

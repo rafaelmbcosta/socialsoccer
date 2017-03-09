@@ -21,15 +21,15 @@ RSpec.feature "Player detail" do
     player = @players.first
     find(".player_#{player.id}").click
     expect(current_path).to eq(reports_player_path(player.id))
-    expect(page).to have_content("#{I18n.t('content.reports.titles.player')} #{player.name}")
+    expect(page).to have_content(player.name)
   end
 
   scenario "User select player detail from the top strikers list" do
     visit reports_top_strikers_url
-    player = @players.first
-    click_link player.name
+    player = @players.last
+    first(:link, I18n.t('content.reports.player_details')).click
     expect(current_path).to eq(reports_player_path(player.id))
-    expect(page).to have_content("#{I18n.t('content.reports.titles.player')} #{player.name}")
+    expect(page).to have_content(player.name)
   end
 
   scenario "User see details of the player" do
