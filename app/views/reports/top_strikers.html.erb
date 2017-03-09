@@ -10,7 +10,7 @@
 					<% if result["avatar"].blank? %>
 						<%= image_tag("profile_default", class: "card-img-top", style: "width: 30%; margin: 0px auto 0px auto;" ) %>
 					<% else %>
-						<%= image_tag(result["avatar"].url, class: "card-img-top", style: "width: 30%; margin: 0px auto 0px auto;" ) %>
+						<%= image_tag(result["avatar"], class: "card-img-top", style: "width: 30%; margin: 0px auto 0px auto;" ) %>
 					<% end %>
 				</div>
 				<div class="card-block">
