@@ -1,9 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Number:</strong>
-  <%= @season.number %>
-</p>
+<div class="col-md-4 offset-md-4 jumbotron">
+  <p>
+    <strong>Number:</strong>
+    <%= @season.number %>
+  </p>
 
-<%= link_to 'Edit', edit_season_path(@season) %> |
-<%= link_to 'Back', seasons_path %>
+  <%= link_to 'Edit', edit_season_path(@season), class: 'btn btn-primary' %>
+  <%= link_to 'Back', seasons_path, class: 'btn btn-primary'  %>
+</div>

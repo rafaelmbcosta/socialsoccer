@@ -2,21 +2,23 @@
 	<%= "class=active" %>
 <% end %>
 
-<h1 class="striker_h1"> <%= t('content.reports.titles.matches') %> <%= @season.id %> </h1>
-
-<table class="table table-bordered table-strikers">
-	<thead>
-		<th> <%= t('content.reports.matches').singularize %> </th>
-		<th> <%= t('content.reports.data') %> </th>
-		<th> <%= t('content.reports.details') %> </th>
-	</thead>
-	<tbody>
-	<% @matches.each do |match| %>
-		<tr>
-			<td> <%= match.id %></td>
-			<td> <%= l match.date, :format => :default %></td>
-			<td> <%= link_to image_tag("details.png"), "/reports/match_detail/#{match.id}", id: match.id %></td>
-		</tr>
-	<% end %>
-	</tbody>
-</table>
+<div class="col-md-12 jumbotron">
+	<h1 class="text-center"> <%= t('content.reports.titles.matches') %> <%= @season.id %> </h1>
+	<br/>
+	<table class="table">
+		<thead>
+			<th> <%= t('content.reports.matches').singularize %> </th>
+			<th> <%= t('content.reports.data') %> </th>
+			<th> <%= t('content.reports.details') %> </th>
+		</thead>
+		<tbody>
+		<% @matches.each do |match| %>
+			<tr>
+				<td> <%= match.id %></td>
+				<td> <%= l match.date, :format => :default %></td>
+				<td> <%= link_to image_tag("details.png"), "/reports/match_detail/#{match.id}", id: match.id %></td>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
+</div>

@@ -1,6 +1,8 @@
-<h2><%= t('devise.links.sign_in') %></h2>
 
-<div class="col-md-4 col-md-offset-4">
+
+<div class="col-md-4 offset-md-4 jumbotron">
+  <h2 class="text-center"><%= t('devise.links.sign_in') %></h2>
+
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-group">
       <%= f.label :email %><br />
@@ -21,8 +23,7 @@
     <% end -%>
 
     <div class="actions">
-      <%= f.submit t('devise.links.sign_in'), class: "btn btn-danger btn-block" %>
+      <%= f.submit t('devise.links.sign_in'), class: "btn btn-primary btn-block" %>
     </div>
   <% end %>
-
 </div>

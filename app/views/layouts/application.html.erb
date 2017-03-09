@@ -16,13 +16,26 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav mr-auto">
         <a href="/" class="nav-item nav-link" ><%= t('content.menu.strikers') %></a>
-        <a href="/reports/videos" class="nav-item nav-link"><%= t('content.menu.videos') %></a>
         <a href="/reports/matches" class="nav-item nav-link"><%= t('content.menu.matches') %></a>
         <a href="/reports/players" class="nav-item nav-link"><%= t('content.menu.players') %></a>
+        <% if user_signed_in? %>
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle btn btn-primary" style="color: #FFF;" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin Menu
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a href="/players" class="dropdown-item"><%= t('content.menu.players') %></a>
+              <a href="/matches" class="dropdown-item"><%= t('content.menu.matches') %></a>
+              <a href="/seasons" class="dropdown-item"><%= t('content.menu.seasons') %></a>
+              <a href="/videos" class="dropdown-item"><%= t('content.menu.videos') %></a>
+              <a href="/presences" class="dropdown-item"><%= t('content.menu.report_goals') %></a>
+            </div>
+          </div>
+          <% end %>
+       </div>
       </div>
       <div class="logout">
         <% if user_signed_in? %>
-          <span class="navbar-text"><%= current_user.email %></span>
           <%= link_to "Logout", destroy_user_session_path, :method => :delete, class: "btn btn-outline-primary" %>
         <% else %>
           <%= link_to t('devise.links.sign_in'), new_user_session_path, class: "btn btn-outline-primary" %>
@@ -30,14 +43,6 @@
       </div>
     </div>
   </nav>
-
-  <% if user_signed_in? %>
-    <div class="row">
-      <div class="container-fluid">
-        <%= render "layouts/admin_menu" %>
-      </div>
-    </div>
-  <% end %>
 
   <div class="row">
     <div class="container-fluid">

@@ -1,10 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <td><%= image_tag(@match.sumula_link.url) %></td>
-  <strong>Date:</strong>
-  <%= @match.date %>
-</p>
+<div class="col-md-8 offset-md-2 jumbotron">
+  <p>
+    <td><%= image_tag(@match.sumula_link.url) unless @match.sumula_link.blank? %></td>
+    <strong>Date:</strong>
+    <%= @match.date %>
+  </p>
 
-<%= link_to 'Edit', edit_match_path(@match) %> |
-<%= link_to 'Back', matches_path %>
+  <%= link_to 'Edit', edit_match_path(@match), class: 'btn btn-primary' %>
+  <%= link_to 'Back', matches_path, class: 'btn btn-primary' %>
+</div>

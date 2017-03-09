@@ -24,9 +24,9 @@
 		<h3> <%= t('content.reports.best_team') %> ( <%= " #{@best_team[:top_goals]} gols" %> )</h3>
 		<%= link_to "#{t('content.reports.matches').singularize} #{@best_team[:best_id]}", "/reports/match_detail/#{@best_team[:best_id]}", id: @best_team[:best_id] %>
 		<table class="table text-center striker-team">
-			<thead>
-				<th>Player</th>
-				<th>Gols</th>
+			<thead class="thead-inverse">
+				<th><%= t('content.reports.player') %></th>
+				<th><%= t('content.reports.goals') %></th>
 			</thead>
 			<tbody>
 				<% @best_team[:top_team].each do |player| %>
@@ -43,9 +43,9 @@
 		<h3> <%= t('content.reports.worst_team') %> ( <%= " #{@best_team[:worst_goals]} gols" %> )</h3>
 		<%= link_to "#{t('content.reports.matches').singularize} #{@best_team[:worst_id]}", "/reports/match_detail/#{@best_team[:worst_id]}", id: @best_team[:worst_id] %>
 		<table class="table text-center striker-team">
-			<thead>
-				<th>Player</th>
-				<th>Gols</th>
+			<thead class="thead-inverse">
+				<th><%= t('content.reports.player') %></th>
+				<th><%= t('content.reports.goals') %></th>
 			</thead>
 			<tbody>
 				<% @best_team[:bad_team].each do |player| %>

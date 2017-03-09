@@ -4,7 +4,7 @@
 
 <div class="col-md-9 jumbotron text-center">
 	<h1 class="display-5"> <%= t('content.reports.titles.strikers') %>  </h1>
-	<% @result.each do |result| %>
+	<% @result.each_with_index do |result, pos| %>
 			<div class="card text-center">
 				<div class="card-header">
 					<% if result["avatar"].blank? %>
@@ -14,8 +14,9 @@
 					<% end %>
 				</div>
 				<div class="card-block">
-					<h4 class="card-title">  <%= result['name'] %> </h4>
+					<h4 class="card-title">  <%= "##{pos+1}" %> &nbsp; <%= result['name'] %> </h4>
 					<table class="table">
+						<thead>
 							<th class="text-center"> <big><%= t('content.reports.goals') %> </big></th>
 							<th class="text-center"> <big> <%= t('content.reports.assist') %> </big></th>
 						</thead>
@@ -24,7 +25,7 @@
 							<td><big><%= result["assist"] %></big></td>
 						</tbody>
 					</table>
-					<%= link_to t('content.reports.player_details'), "/reports/player/#{result['id']}", {class: "btn btn-primary btn-block" }%>
+					<%= link_to t('content.reports.player_details'), "/reports/player/#{result['id']}", {class: "btn btn-outline-primary btn-block" }%>
 				</div>
 			</div>
 	<% end %>
