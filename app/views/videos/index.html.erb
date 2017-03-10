@@ -7,6 +7,7 @@
     <thead>
       <tr>
         <th><%= model_class.human_attribute_name(:id) %></th>
+        <th><%= t('activerecord.attributes.video.date_match') %></th>
         <th><%= model_class.human_attribute_name(:date) %></th>
         <th><%= model_class.human_attribute_name(:url) %></th>
         <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -16,6 +17,7 @@
       <% @videos.each do |video| %>
         <tr>
           <td><%= link_to video.id, video_path(video) %></td>
+          <td><%=l video.match.date unless video.match.nil? %></td>
           <td><%=l video.date %></td>
           <td><%= video.url %></td>
           <td>

@@ -8,7 +8,7 @@ class GoalsController < ApplicationController
   end
 
   # GET /goals/1
-  # GET /goals/1.json
+   # GET /goals/1.json
   def show
   end
 
