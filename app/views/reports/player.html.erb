@@ -2,7 +2,7 @@
 	<%= "class=active" %>
 <% end %>
 
-<div class="col-md-4 jumbotron text-center">
+<div class="col-lg-4 col-md-12 jumbotron text-center">
 	<h3><%= player_name(@player) %></h3>
 
 	<% if @player.avatar.url.blank? %>
@@ -17,7 +17,7 @@
 	  <p><strong><%= t('content.reports.goals_per_match') %>:</strong>&nbsp; <%= @goals_match %></strong></p>
 </div>
 
-<div class="col-md-8">
+<div class="col-lg-8 col-md-12">
 	<div id="gol_chart" class="jumbotron"></div>
 
 	<div class="jumbotron text-center">

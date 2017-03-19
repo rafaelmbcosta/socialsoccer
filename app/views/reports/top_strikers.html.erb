@@ -2,7 +2,7 @@
 	<%= "class=active" %>
 <% end %>
 
-<div class="col-md-9 jumbotron text-center">
+<div class="col-lg-9 col-md-12 jumbotron text-center">
 	<h1 class="display-5"> <%= t('content.reports.titles.strikers') %>  </h1>
 	<% @result.each_with_index do |result, pos| %>
 			<div class="card text-center">
@@ -31,13 +31,13 @@
 	<% end %>
 </div>
 
-<div class="col-md-3">
-	<div class="jumbotron text-center">
+<div class="col-lg-3 col-md-12">
+	<div class="jumbotron text-center col-md-12">
 		<h3> <%= t('content.reports.titles.season') %> <h3>
 		<%= select_tag "season", options_from_collection_for_select( Season.all, "id", "id", @season.id), id: 'season_select', class: "form-control" %>
 	</div>
 
-	<div class="jumbotron text-center">
+	<div class="jumbotron text-center col-md-12">
 		<h3> <%= t('content.reports.titles.overview') %> </h3>
 		<hr class="my-4">
 		<p> <big><%= t('content.reports.matches') %>:&nbsp; <b><%= @matches %></b></big> </p>
