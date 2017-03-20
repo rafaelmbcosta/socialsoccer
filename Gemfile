@@ -15,7 +15,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
-
+#CI
+gem 'travis'
+# Making responsive layouts
 gem 'bootstrap', '~> 4.0.0.alpha6'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -63,6 +65,8 @@ group :development, :test do
 
   # Make easier to test for associations
   gem 'shoulda'
+
+
 
   # Functional testing
   gem 'capybara'

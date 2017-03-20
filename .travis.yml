@@ -1,0 +1,17 @@
+language: ruby
+rvm:
+- 2.3.3
+bundler_args: "--jobs=2"
+script:
+- bundle exec rake db:setup
+- bundle exec rake spec
+cache: bundler
+services:
+- postgresql
+addons:
+  postgresql: "9.4"
+deploy:
+  provider: heroku
+  api_key:
+    secure: Tiw0/L6OvU5vCw9G2xwdHcsW7zT9gatsFPi3Ek9NVxvAgtTKfgq2WffwhZ3uTUw8xZkannfT9mK1pUkjUv9lOT7PwsApGVSFaJX9M5r4D2U8eHiXmw8pbqpA0XSQy9X2XLV8Q2sKkU3ODUdtec7tgEF0tCDyciAF1F55EdLbyK/R8j2fQoqh4KuJiRYVbWp8vJb9k4VFj/dfqp1ZVUs8AoefCaP+j0z0atedtITQVk+b2Z0UuNujM/JDjzruYYfFlw1FNATBuFXx2YAesxJBZS9ifHKH1hiVAUc/D2qSZy6YPieG0R64sYopKgPSDPQ6UicXjp08LfAcO7f2431YvyCpg9iFjr9Gq5Rv9/gokbsIaubIkro/RxSWbRadZAC5JcMw6UReRKdzq+vz+tazTeoFN+CmkO+gLjmiOk7/3hRZXqyOeHq354wqo6Q9Fnpjh9Xq1DtpvQYsuEgOe9lfhFsXPoo2rrlpYDhkB3U884Pute23P8Um4uO1A39zJcgvPeuyPyZ2Q0qMEaKvAsPqj3oHuWB8aDAa53dDjt+vHY/1i6IFOry6ym9d/RNq/LxrgxkvL6OxwTy8+J4oHHhI2YcRfUyqbFsC5xv48nL+DKvdv/KCnPfWm6/a4f2chQay6tT4Xb+cUJfRBhtiwBrQszj3xNhJRZS1bQ2gTk8UMHo=
+  app: rachapio12
