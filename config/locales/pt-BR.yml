@@ -89,8 +89,10 @@ pt-BR:
       video:
         url: "Endereço"
         match_id: "Partida"
+        match_has_many_videos: "Partidas / (Total de Videos)"
         description: "Descrição"
         date: "Data"
+        date_match: "Data Partida"
       player:
         name: "Nome"
         nickname: "Apelido"

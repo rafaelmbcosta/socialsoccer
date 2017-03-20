@@ -1,5 +1,6 @@
 class Match < ApplicationRecord
   has_many :presences
+  has_many :videos
   belongs_to :season
   mount_uploader :sumula_link, SumulaUploader
 

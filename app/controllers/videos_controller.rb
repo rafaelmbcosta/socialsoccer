@@ -16,10 +16,12 @@ class VideosController < ApplicationController
   # GET /videos/new
   def new
     @video = Video.new
+    @matches = Match.all
   end
 
   # GET /videos/1/edit
   def edit
+    @matches = Match.all
   end
 
   # POST /videos
@@ -70,6 +72,6 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:url, :date, :description)
+      params.require(:video).permit(:url, :date, :description, :match_id)
     end
 end
