@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Match, :type => :model do
 
   describe "Associations" do
-    
+
   end
 
   let!(:unfinished_match) { FactoryGirl.create(:match) }
@@ -25,6 +25,14 @@ RSpec.describe Match, :type => :model do
       another_player = FactoryGirl.create(:player)
       FactoryGirl.create(:presence, player_id: another_player.id, match_id: finished_match.id, goals: 3)
       expect(finished_match.average_goal_by_player).to eq(2.0)
+    end
+  end
+
+  describe "Scope 'find_videos_and_relate'" do
+    it 'if found' do
+      video = FactoryGirl.create(:video, date: '2017-01-01')
+      match = FactoryGirl.create(:match, date: '2017-01-01', finished: true)
+      expect(video.match_id).to be eq(match.id)
     end
   end
 
