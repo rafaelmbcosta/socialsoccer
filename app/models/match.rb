@@ -1,5 +1,6 @@
 class Match < ApplicationRecord
   has_many :presences
+  has_many :videos
   belongs_to :season
   mount_uploader :sumula_link, SumulaUploader
 
@@ -18,12 +19,10 @@ class Match < ApplicationRecord
   def find_videos_and_relate
     videos = Video.where(date: self.date)
     unless videos.blank?
-      Video.transaction do
-        videos.each do |video|
-          video.match_id = self.id
-          video.save
-        end#end each
-      end#end transaction
+      videos.each do |video|
+        video.match_id = self.id
+        video.save
+      end#end each
     end#end unless
   end
 

@@ -32,7 +32,8 @@ RSpec.describe Match, :type => :model do
     it 'if found' do
       video = FactoryGirl.create(:video, date: '2017-01-01')
       match = FactoryGirl.create(:match, date: '2017-01-01', finished: true)
-      expect(video.match_id).to be eq(match.id)
+      expect(video.match).to eq(match)
+      expect(video.matches).to include(match)
     end
   end
 
