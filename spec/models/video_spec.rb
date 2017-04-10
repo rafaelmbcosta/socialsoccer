@@ -35,9 +35,16 @@ RSpec.describe Match, :type => :model do
       @match = FactoryGirl.build(:match, date: I18n.l(date), finished: true)
     end
 
-    it 'must link match to existing videos' do
+    it 'relationship must work' do
+      @match.videos << @video
       @match.save
+      expect(@video.match).to eq(@match)
+      expect(@match.videos).to include(@video)
+    end
+
+    it 'must link match to existing videos' do
       @video.save
+      @match.save
       expect(@video.match).to eq(@match)
       expect(@match.videos).to include(@video)
     end

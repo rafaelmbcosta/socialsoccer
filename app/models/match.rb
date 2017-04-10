@@ -1,10 +1,9 @@
 class Match < ApplicationRecord
   has_many :presences
-  has_many :videos
+  has_many :videos, autosave: true
   belongs_to :season
-  mount_uploader :sumula_link, SumulaUploader
 
-  after_save :find_videos_and_relate
+  mount_uploader :sumula_link, SumulaUploader
 
   def self.unfinished
     return Match.all.where("finished is false")
@@ -14,16 +13,6 @@ class Match < ApplicationRecord
   	presences = self.presences
   	goals = presences.sum("goals")
   	return (goals/presences.size.to_f).round(2)
-  end
-
-  def find_videos_and_relate
-    videos = Video.where(date: self.date)
-    unless videos.blank?
-      videos.each do |video|
-        video.match_id = self.id
-        video.save
-      end#end each
-    end#end unless
   end
 
 end
