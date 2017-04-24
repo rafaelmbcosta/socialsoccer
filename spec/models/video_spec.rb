@@ -28,19 +28,4 @@ RSpec.describe Match, :type => :model do
     end
   end
 
-  describe "Scope 'find_videos_and_relate'" do
-    before do
-      date = Date.today
-      @video = FactoryGirl.build(:video, date: I18n.l(date))
-      @match = FactoryGirl.build(:match, date: I18n.l(date), finished: true)
-    end
-
-    it 'must link match to existing videos' do
-      @match.save
-      @video.save
-      expect(@video.match).to eq(@match)
-      expect(@match.videos).to include(@video)
-    end
-  end
-
 end

@@ -3,6 +3,7 @@ class MatchesController < ApplicationController
   before_action :authenticate_user!
   # GET /matches
   # GET /matches.json
+
   def index
     @last_season = Season.last
     @last_season = Season.find(params["filter"]["season"]) if params["filter"].present?
@@ -27,8 +28,6 @@ class MatchesController < ApplicationController
   # POST /matches
   # POST /matches.json
   def create
-    @match = Match.new(match_params)
-
     respond_to do |format|
       if @match.save
         format.html { redirect_to @match, notice: 'Match was successfully created.' }

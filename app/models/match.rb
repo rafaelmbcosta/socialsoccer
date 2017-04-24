@@ -1,6 +1,8 @@
 class Match < ApplicationRecord
   has_many :presences
+  has_many :videos, autosave: true
   belongs_to :season
+
   mount_uploader :sumula_link, SumulaUploader
 
   def self.unfinished
@@ -12,4 +14,5 @@ class Match < ApplicationRecord
   	goals = presences.sum("goals")
   	return (goals/presences.size.to_f).round(2)
   end
+
 end

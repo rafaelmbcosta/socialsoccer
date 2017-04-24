@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210011611) do
+ActiveRecord::Schema.define(version: 20170407170113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,9 +26,8 @@ ActiveRecord::Schema.define(version: 20170210011611) do
     t.integer  "season_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.index ["season_id"], name: "index_matches_on_season_id", using: :btree
   end
-
-  add_index "matches", ["season_id"], name: "index_matches_on_season_id", using: :btree
 
   create_table "players", force: :cascade do |t|
     t.string   "name",       null: false
@@ -51,11 +49,10 @@ ActiveRecord::Schema.define(version: 20170210011611) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "assist",       default: 0,     null: false
+    t.index ["match_id"], name: "index_presences_on_match_id", using: :btree
+    t.index ["player_id"], name: "index_presences_on_player_id", using: :btree
+    t.index ["team_id"], name: "index_presences_on_team_id", using: :btree
   end
-
-  add_index "presences", ["match_id"], name: "index_presences_on_match_id", using: :btree
-  add_index "presences", ["player_id"], name: "index_presences_on_player_id", using: :btree
-  add_index "presences", ["team_id"], name: "index_presences_on_team_id", using: :btree
 
   create_table "seasons", force: :cascade do |t|
     t.integer  "number"
@@ -84,10 +81,9 @@ ActiveRecord::Schema.define(version: 20170210011611) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "videos", force: :cascade do |t|
     t.string   "url"
@@ -96,10 +92,12 @@ ActiveRecord::Schema.define(version: 20170210011611) do
     t.integer  "match_id"
     t.date     "date",        default: '2016-02-10', null: false
     t.string   "description",                        null: false
+    t.index ["match_id"], name: "index_videos_on_match_id", using: :btree
   end
 
   add_foreign_key "matches", "seasons"
   add_foreign_key "presences", "matches"
   add_foreign_key "presences", "players"
   add_foreign_key "presences", "teams"
+  add_foreign_key "videos", "matches"
 end
