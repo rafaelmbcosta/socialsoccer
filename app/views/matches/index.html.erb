@@ -5,20 +5,46 @@
 <div class="col-md-12 jumbotron">
   <h1 class="text-center"><%=t 'helpers.titles.list', :model => @matches.model_name.human.pluralize.titleize %></h1>
 
-
-  <%= form_for "filter", method: :get, url: matches_path , class: "form-horizontal" do |f| %>
-    <div class="form-group">
-      <div class="checkbox">
-        <label>
-          <%= f.check_box "finished", { class: "checkbox" }, true, false  %> Show not finished
-        </label>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="pull-right">
+        <%= link_to "Nova Partida", new_match_path, class: "btn btn-info" %>
       </div>
     </div>
-    <div class="form-group">
-      <%= f.select :season, Season.all.collect{|x| [x.number, x.id]}, { selected: @last_season.id} ,{ class: "form-control"}  %>
+  </div>
+    <br>
+
+
+  <%= form_for "filter", method: :get, url: matches_path , class: "form-horizontal" do |f| %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Filtrar Partidas</h3>
     </div>
-    <div class="form-group">
-      <%= f.submit nil, class: "btn btn-danger" %>
+
+    <div class="panel-body">
+
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <%= f.check_box "finished", { class: "checkbox" }, true, false  %> Mostrar partidas finalizadas
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <%= f.select :season, Season.all.collect{|x| [x.number, x.id]}, { selected: @last_season.id} ,{ class: "form-control"}  %>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <%= f.submit "Filtrar", class: "btn btn-danger" %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
 
@@ -28,31 +54,49 @@
         <th><%= model_class.human_attribute_name(:id) %></th>
         <th><%= t("content.report.titles.season") %>
         <th><%= model_class.human_attribute_name(:date) %></th>
+        <th><%= model_class.human_attribute_name(:videos) %></th>
         <th><%= model_class.human_attribute_name(:finished) %></th>
         <th><%=t '.actions', :default => t("helpers.actions") %></th>
-
       </tr>
     </thead>
-
     <tbody>
       <% @matches.each do |match| %>
         <tr>
           <td><b><%= match.id %></b></td>
           <td> <%= match.season.number %>
           <td><%= match.date.strftime("%d/%m/%Y") %></td>
-                  <td><%= match.finished? ? "Sim" : "Não" %></td>
-          <td><%= link_to t("helpers.links.show"), match, class: "btn btn-primary" %></td>
-          <td><%= link_to t("helpers.links.edit"), edit_match_path(match), class: "btn btn-primary" %></td>
           <td>
-            <%= link_to t("helpers.links.destroy"), match, method: :delete,
-                data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+              <% if match.videos.empty? %>
+                Nenhum vídeo Relacionado.
+              <% else %>
+                <% match.videos.each do |v| %>
+                  <li>
+                    <span class="content">
+                      <%= v.description %><br />
+                       <iframe width="200" height="110" src="<%= v.url %>" frameborder="0"  allowfullscreen></iframe>
+                    </span>
+                  </li>
+                <% end %>
+              <% end %>
+          </td>
+          <td><%= match.finished? ? image_tag("played.png", height: '32', width: '32') : image_tag("missed.png", height: '32', width: '32') %></td>
+          <td>
+            <div class="dropdown hide">
+              <a class="btn btn-info dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Ações
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href<%= link_to t("helpers.links.show"), match %> </a>
+                <a class="dropdown-item" href<%= link_to t("helpers.links.edit"), edit_match_path(match) %></a>
+                <a class="dropdown-item" href<%= link_to t("helpers.links.destroy"), match, method: :delete,
+                    data: { confirm: "Deseja deletar a partida ?" } %></a>
+                <a class="dropdown-item" href<%= link_to t("Vincular vídeo"), "videos/new?match_date=#{match.date}" %></a>
+              </div>
+            </div>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
   <br>
-
-  <%= link_to t("helpers.links.new"), new_match_path, class: "btn btn-info" %>
 </div>
