@@ -16,6 +16,7 @@ class VideosController < ApplicationController
   # GET /videos/new
   def new
     @video = Video.new
+    @prompt = params[:match_date].present? ? params[:match_date] : "Selecione a data da partida"
   end
 
   # GET /videos/1/edit

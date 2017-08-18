@@ -16,6 +16,20 @@
 			<tr>
 				<td> <%= match.id %></td>
 				<td> <%= l match.date, :format => :default %></td>
+				<td>
+						<% if match.videos.empty? %>
+							Nenhum vídeo Relacionado.
+						<% else %>
+							<% match.videos.each do |v| %>
+								<li>
+									<span class="content">
+										<%= v.description %><br />
+										 <iframe width="200" height="110" src="<%= v.url %>" frameborder="0"  allowfullscreen></iframe>
+									</span>
+								</li>
+							<% end %>
+						<% end %>
+				</td>
 				<td> <%= link_to image_tag("details.png"), "/reports/match_detail/#{match.id}", id: match.id %></td>
 			</tr>
 		<% end %>
