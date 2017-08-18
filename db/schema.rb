@@ -87,11 +87,11 @@ ActiveRecord::Schema.define(version: 20170407170113) do
 
   create_table "videos", force: :cascade do |t|
     t.string   "url"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "match_id"
-    t.date     "date",        default: '2016-02-10', null: false
-    t.string   "description",                        null: false
+    t.date     "date",        default: '2016-08-15',   null: false
+    t.string   "description", default: "Social Video", null: false
     t.index ["match_id"], name: "index_videos_on_match_id", using: :btree
   end
 
