@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
 
 	def matches
 		@season = Season.last
-		@matches = Match.all.where("season_id = ?", @season.id).sort.reverse
+		@matches = Match.all.where("season_id = ?", @season.id).order(date: :desc)
 	end
 
 	def match_detail
