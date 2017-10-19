@@ -1,10 +1,22 @@
 body {
   background-color: #d8dadd;
 }
+.avatar{
+  height: 100px;
+}
+
+.navbar-nav a, .navbar-brand{
+  color: #FFF !important;
+}
 
 .jumbotron {
   background-color: #FFF;
   margin-top: 30px;
+}
+
+.table td, .table th{
+  text-align: center;
+  vertical-align: middle;
 }
 
 .card{

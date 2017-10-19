@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3672a;">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -37,7 +37,7 @@
          <% if user_signed_in? %>
            <%= link_to "Logout", destroy_user_session_path, :method => :delete, class: "btn btn-outline-primary" %>
          <% else %>
-           <%= link_to t('devise.links.sign_in'), new_user_session_path, class: "btn btn-outline-primary" %>
+           <%= link_to t('devise.links.sign_in'), new_user_session_path, class: "btn btn-outline-dark" %>
          <% end %>
        </div>
       </div>

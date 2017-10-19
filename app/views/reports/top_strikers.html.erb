@@ -2,6 +2,35 @@
 	<%= "class=active" %>
 <% end %>
 
+<div class="col-md-12 jumbotron" >
+	<table class="table">
+		<thead>
+			<th> Posição </th>
+			<th colspan="2"> Jogador </th>
+			<th> Gols </th>
+			<th> Assistencias </th>
+		</thead>
+		<tbody>
+			<% @result.each_with_index do |result, pos| %>
+				<tr>
+					<td><%= "#{pos+1}" %></td>
+					<td class="avatar">
+						<% if result["avatar"].blank? %>
+							<%= image_tag("profile_default.png", class: "avatar") %>
+						<% else %>
+							<%= image_tag(result["avatar"], class: "avatar" ) %>
+						<% end %>
+					</td>
+					<td><%= result['name'] %></td>
+					<td><b><%= result["goals"] %></b></td>
+					<td><%= result["assist"] %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+
 <div class="col-lg-9 col-md-12 jumbotron text-center">
 	<h1 class="display-5"> <%= t('content.reports.titles.strikers') %>  </h1>
 	<% @result.each_with_index do |result, pos| %>

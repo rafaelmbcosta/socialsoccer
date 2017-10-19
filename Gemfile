@@ -18,7 +18,7 @@ gem 'therubyracer', platforms: :ruby
 #CI
 gem 'travis'
 # Making responsive layouts
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'bootstrap', '~> 4.0.0.beta'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
