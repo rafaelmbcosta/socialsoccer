@@ -2,42 +2,49 @@
 	<%= "class=active" %>
 <% end %>
 
-  <ul class="nav nav-pills nav-fill col-md-12 nav-strikers">
-    <li class="nav-item">
-      <a class="nav-link nav-item active" href="#">2017</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link nav-item"  href="#">2016</a>
-    </li>
+  <ul class="nav nav-pills nav-fill col-md-12 nav-strikers nav-pills" role="tablist">
+    <% @result.each do |year, _strikers| %>
+      <li class="nav-item">
+        <a class="nav-link nav-item <%= 'active' if year == @result.keys.first %>" href="#year_<%= year %>" data-toggle="pill" role="pill"><%= year %></a>
+      </li>
+    <% end %>
   </ul>
 
-<table class="table col-md-12">
-	<thead>
-		<th> Posição </th>
-		<th colspan="2" class="text-left"> Jogador </th>
-		<th> Gols </th>
-		<th> Assistencias </th>
-    <th> Detalhes </th>
-	</thead>
-	<tbody>
-		<% @result.each_with_index do |result, pos| %>
-			<tr>
-				<td><%= "#{pos+1}" %></td>
-				<td class="avatar">
-					<% if result["avatar"].blank? %>
-						<%= image_tag("profile_default.png", class: "avatar") %>
-					<% else %>
-						<%= image_tag(result["avatar"], class: "avatar" ) %>
-					<% end %>
-				</td>
-				<td><%= result['name'] %></td>
-				<td><b><%= result["goals"] %></b></td>
-				<td><%= result["assist"] %></td>
-        <td><%= fa_icon 'access-icon' %></td>
-			</tr>
-		<% end %>
-	</tbody>
-</table>
+<div class="tab-content col-md-12">
+  <% @result.each do |year, strikers| %>
+    <% if strikers.empty? %>
+      <div class="jumbotron col-md-12 text-center" id="year_<%= year %>"> Nenhum resultado </div>
+    <% else %>
+      <table class="table col-md-12" id="year_<%= year %>">
+      	<thead>
+      		<th> Posição </th>
+      		<th colspan="2" class="text-left"> Jogador </th>
+      		<th> Gols </th>
+      		<th> Assistencias </th>
+          <th> Detalhes </th>
+      	</thead>
+      	<tbody>
+      		<% strikers.each_with_index do |result, pos| %>
+      			<tr>
+      				<td><%= "#{pos+1}" %></td>
+      				<td class="avatar">
+      					<% if result["avatar"].blank? %>
+      						<%= image_tag("profile_default.png", class: "avatar") %>
+      					<% else %>
+      						<%= image_tag(result["avatar"], class: "avatar" ) %>
+      					<% end %>
+      				</td>
+      				<td><%= result['name'] %></td>
+      				<td><b><%= result["goals"] %></b></td>
+      				<td><%= result["assist"] %></td>
+              <td class="player-details"><%= link_to fa_icon("area-chart"), reports_player_url(result["id"]) %> </td>
+      			</tr>
+      		<% end %>
+      	</tbody>
+      </table>
+    <% end %>
+  <% end %>
+</div>
 
 <script>
   $("#season_select").change(function(){

@@ -20,11 +20,11 @@
         <a href="/reports/players" class="nav-item nav-link text-white"><%= t('content.menu.players') %></a>
         <% if user_signed_in? %>
           <a class="navbar-brand text-white brand-admin" href="#"> &nbsp;&nbsp;&nbsp;|</a>
-          <a href="/players" class="nav-item nav-link text-admin"><%= t('content.menu.players') %></a>
           <a href="/matches" class="nav-item nav-link text-admin"><%= t('content.menu.matches') %></a>
           <a href="/seasons" class="nav-item nav-link text-admin"><%= t('content.menu.seasons') %></a>
           <a href="/videos" class="nav-item nav-link text-admin"><%= t('content.menu.videos') %></a>
           <a href="/presences" class="nav-item nav-link text-admin"><%= t('content.menu.report_goals') %></a>
+          <a href="/players" class="nav-item nav-link text-admin"><%= t('content.menu.players') %></a>
         <% end %>
        </div>
        <div class="logout">
