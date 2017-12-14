@@ -1,12 +1,8 @@
 class ReportsController < ApplicationController
 	def top_strikers
-		@season = params["id"] ? Season.find(params["id"]) : Season.last
-	  @goals = @season.goals
-		@matches = @season.matches.size
-		@result = @season.top_strikers
+		@result = Season.update_top_strikers
 		respond_to do |format|
 			format.html
-			format.json { render json: @result.collect{ |ts| { _id: ts["id"], name: ts["name"], goals: ts["goals"] }} }
 		end
 	end
 

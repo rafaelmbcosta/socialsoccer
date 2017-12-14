@@ -11,6 +11,7 @@ RSpec.feature "Player detail" do
     @season.matches.each do |match|
       @players.each do |player|
         match.presences << FactoryGirl.build(:presence, player: player, goals: 1, assist: 3)
+        match.save
       end
     end
     @season.save
@@ -20,14 +21,6 @@ RSpec.feature "Player detail" do
     visit reports_players_url
     player = @players.first
     find(".player_#{player.id}").click
-    expect(current_path).to eq(reports_player_path(player.id))
-    expect(page).to have_content(player.name)
-  end
-
-  scenario "User select player detail from the top strikers list" do
-    visit reports_top_strikers_url
-    player = @players.last
-    first(:link, I18n.t('content.reports.player_details')).click
     expect(current_path).to eq(reports_player_path(player.id))
     expect(page).to have_content(player.name)
   end

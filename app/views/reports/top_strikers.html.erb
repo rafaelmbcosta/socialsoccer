@@ -2,48 +2,64 @@
 	<%= "class=active" %>
 <% end %>
 
-<div class="col-lg-9 col-md-12 jumbotron text-center">
-	<h1 class="display-5"> <%= t('content.reports.titles.strikers') %>  </h1>
-	<% @result.each_with_index do |result, pos| %>
-			<div class="card text-center">
-				<div class="card-header">
-					<% if result["avatar"].blank? %>
-						<%= image_tag("profile_default.png", class: "card-img-top", style: "width: 30%; margin: 0px auto 0px auto;" ) %>
-					<% else %>
-						<%= image_tag(result["avatar"], class: "card-img-top", style: "width: 30%; margin: 0px auto 0px auto;" ) %>
-					<% end %>
-				</div>
-				<div class="card-block">
-					<h4 class="card-title">  <%= "##{pos+1}" %> &nbsp; <%= result['name'] %> </h4>
-					<table class="table">
-						<thead>
-							<th class="text-center"> <big><%= t('content.reports.goals') %> </big></th>
-							<th class="text-center"> <big> <%= t('content.reports.assist') %> </big></th>
-						</thead>
-						<tbody>
-							<td><big><%= result["goals"] %></big></td>
-							<td><big><%= result["assist"] %></big></td>
-						</tbody>
-					</table>
-					<%= link_to t('content.reports.player_details'), "/reports/player/#{result['id']}", {class: "btn btn-outline-primary btn-block" }%>
-				</div>
-			</div>
-	<% end %>
-</div>
+  <ul class="nav nav-pills nav-fill col-md-12 nav-strikers nav-pills" role="tablist">
+    <% @result.each do |year, _strikers| %>
+      <li class="nav-item">
+        <a
+          class="nav-link nav-item <%= 'active' if year == @result.keys.first %>"
+          href="#year_<%= year %>"
+          data-toggle="pill"
+          role="pill"
+          aria-controls="year_<%= year %>"><%= year %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
 
-<div class="col-lg-3 col-md-12">
-	<div class="jumbotron text-center col-md-12">
-		<h3> <%= t('content.reports.titles.season') %> <h3>
-		<%= select_tag "season", options_from_collection_for_select( Season.all, "id", "id", @season.id), id: 'season_select', class: "form-control" %>
-	</div>
-
-	<div class="jumbotron text-center col-md-12">
-		<h3> <%= t('content.reports.titles.overview') %> </h3>
-		<hr class="my-4">
-		<p> <big><%= t('content.reports.matches') %>:&nbsp; <b><%= @matches %></b></big> </p>
-		<p> <big><%= t('content.reports.goals') %>: &nbsp; <b><%= @goals %></b></big> </p>
-		<p> <big><%= t('content.reports.goal_average') %>: &nbsp; <b><%= (@goals/@matches.to_f).round(1) %></b></big></p>
-	</div>
+<div class="tab-content col-md-12">
+  <% @result.each do |year, strikers| %>
+    <% if strikers.empty? %>
+      <div
+          class="jumbotron col-md-12 text-center tab-pane <%= pill_class(year, @result) %>"
+          id="year_<%= year %>"
+          role="tabpanel"
+          aria-labelledby="year_<%= year %>-pill">
+        Nenhum resultado
+      </div>
+    <% else %>
+      <table
+        class="table col-md-12 tab-pane <%= pill_class(year, @result) %>"
+        id="year_<%= year %>"
+        role="tabpanel"
+        aria-labelledby="year_<%= year %>-pill">
+      	<thead>
+      		<th> Posição </th>
+      		<th colspan="2" class="text-left"> Jogador </th>
+      		<th> Gols </th>
+      		<th> Assistencias </th>
+          <th> Detalhes </th>
+      	</thead>
+      	<tbody>
+      		<% strikers.each_with_index do |result, pos| %>
+      			<tr>
+      				<td><%= "#{pos+1}" %></td>
+      				<td class="avatar">
+      					<% if result["avatar"].blank? %>
+      						<%= image_tag("profile_default.png", class: "avatar") %>
+      					<% else %>
+      						<%= image_tag(result["avatar"], class: "avatar" ) %>
+      					<% end %>
+      				</td>
+      				<td><%= result['name'] %></td>
+      				<td><b><%= result["goals"] %></b></td>
+      				<td><%= result["assist"] %></td>
+              <td class="player-details"><%= link_to fa_icon("area-chart"), reports_player_url(result["id"]) %> </td>
+      			</tr>
+      		<% end %>
+      	</tbody>
+      </table>
+    <% end %>
+  <% end %>
 </div>
 
 <script>

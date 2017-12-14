@@ -18,7 +18,7 @@ gem 'therubyracer', platforms: :ruby
 #CI
 gem 'travis'
 # Making responsive layouts
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'bootstrap', '~> 4.0.0.beta'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -39,6 +39,8 @@ gem 'mini_magick'
 gem 'carrierwave'
 gem "figaro"
 
+gem "font-awesome-rails", '~> 4.7.0.2'
+
 gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
@@ -49,7 +51,7 @@ group :development, :test do
   gem 'spring', '=1.6.2'
 
   # Code quality
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.52.0',require: false
 
   # Rspec for rails 5
   gem 'rspec-rails', '~> 3.5'
