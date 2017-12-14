@@ -5,7 +5,13 @@
   <ul class="nav nav-pills nav-fill col-md-12 nav-strikers nav-pills" role="tablist">
     <% @result.each do |year, _strikers| %>
       <li class="nav-item">
-        <a class="nav-link nav-item <%= 'active' if year == @result.keys.first %>" href="#year_<%= year %>" data-toggle="pill" role="pill"><%= year %></a>
+        <a
+          class="nav-link nav-item <%= 'active' if year == @result.keys.first %>"
+          href="#year_<%= year %>"
+          data-toggle="pill"
+          role="pill"
+          aria-controls="year_<%= year %>"><%= year %>
+        </a>
       </li>
     <% end %>
   </ul>
@@ -13,9 +19,19 @@
 <div class="tab-content col-md-12">
   <% @result.each do |year, strikers| %>
     <% if strikers.empty? %>
-      <div class="jumbotron col-md-12 text-center" id="year_<%= year %>"> Nenhum resultado </div>
+      <div
+          class="jumbotron col-md-12 text-center tab-pane <%= pill_class(year, @result) %>"
+          id="year_<%= year %>"
+          role="tabpanel"
+          aria-labelledby="year_<%= year %>-pill">
+        Nenhum resultado
+      </div>
     <% else %>
-      <table class="table col-md-12" id="year_<%= year %>">
+      <table
+        class="table col-md-12 tab-pane <%= pill_class(year, @result) %>"
+        id="year_<%= year %>"
+        role="tabpanel"
+        aria-labelledby="year_<%= year %>-pill">
       	<thead>
       		<th> Posição </th>
       		<th colspan="2" class="text-left"> Jogador </th>
