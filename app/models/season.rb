@@ -4,7 +4,7 @@ class Season < ApplicationRecord
 
 	def self.update_top_strikers
     top_strikers = Hash.new
-    Season.all.each do |season|
+    Season.all.order('number desc').each do |season|
   		resultado = Array.new
   		presences = season.presences.where("goals > 0 or assist > 0").group_by{|presence| presence.player_id}
   		presences.each do |player_id, presence_array|
@@ -24,8 +24,7 @@ class Season < ApplicationRecord
   			player["assist"] = assists
   			resultado << player
   		end
-  		resultado.sort_by!{|r| [r["goals"], r["assist"]]}.reverse
-      top_strikers[season.number.to_s] = resultado
+      top_strikers[season.number.to_s] = resultado.sort_by{|r| [r["goals"], r["assist"]]}.reverse
     end
     return top_strikers
 	end
