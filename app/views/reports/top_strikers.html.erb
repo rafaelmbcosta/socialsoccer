@@ -27,37 +27,37 @@
         Nenhum resultado
       </div>
     <% else %>
-      <table
-        class="table col-md-12 tab-pane <%= pill_class(year, @result) %>"
-        id="year_<%= year %>"
-        role="tabpanel"
-        aria-labelledby="year_<%= year %>-pill">
-      	<thead>
-      		<th> Posição </th>
-      		<th colspan="2" class="text-left"> Jogador </th>
-      		<th> Gols </th>
-      		<th> Assistencias </th>
-          <th> Detalhes </th>
-      	</thead>
-      	<tbody>
-      		<% strikers.each_with_index do |result, pos| %>
-      			<tr>
-      				<td><%= "#{pos+1}" %></td>
-      				<td class="avatar">
-      					<% if result["avatar"].blank? %>
-      						<%= image_tag("profile_default.png", class: "avatar") %>
-      					<% else %>
-      						<%= image_tag(result["avatar"], class: "avatar" ) %>
-      					<% end %>
-      				</td>
-      				<td><%= result['name'] %></td>
-      				<td><b><%= result["goals"] %></b></td>
-      				<td><%= result["assist"] %></td>
-              <td class="player-details"><%= link_to fa_icon("area-chart"), reports_player_url(result["id"]) %> </td>
-      			</tr>
-      		<% end %>
-      	</tbody>
-      </table>
+			<div class="tab-pane <%= pill_class(year, @result) %>" id="year_<%= year %>">
+	      <table class="table col-md-12">
+	      	<thead>
+	      		<th> Posição </th>
+	      		<th colspan="2" class="text-left"> Jogador </th>
+	      		<th> Gols </th>
+	      		<th> Assistencias </th>
+	          <th> Detalhes </th>
+	      	</thead>
+	      	<tbody>
+	      		<% strikers.each_with_index do |result, pos| %>
+	      			<tr>
+	      				<td><%= "#{pos+1}" %></td>
+	      				<td class="avatar">
+									<div class="avatar-frame">
+		      					<% if result["avatar"].blank? %>
+		      						<%= image_tag("profile_default.png", class: "avatar") %>
+		      					<% else %>
+		      						<%= image_tag(result["avatar"], class: "avatar" ) %>
+		      					<% end %>
+									</div>
+	      				</td>
+	      				<td><%= result['name'] %></td>
+	      				<td><b><%= result["goals"] %></b></td>
+	      				<td><%= result["assist"] %></td>
+	              <td class="player-details"><%= link_to fa_icon("area-chart"), reports_player_url(result["id"]) %> </td>
+	      			</tr>
+	      		<% end %>
+	      	</tbody>
+	      </table>
+			</div>
     <% end %>
   <% end %>
 </div>
