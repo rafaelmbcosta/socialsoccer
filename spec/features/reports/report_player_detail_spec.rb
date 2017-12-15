@@ -17,14 +17,6 @@ RSpec.feature "Player detail" do
     @season.save
   end
 
-  scenario "User select player detail from the player list" do
-    visit reports_players_url
-    player = @players.first
-    find(".player_#{player.id}").click
-    expect(current_path).to eq(reports_player_path(player.id))
-    expect(page).to have_content(player.name)
-  end
-
   scenario "User see details of the player" do
     player = @players.first
     visit reports_player_path(player.id)
