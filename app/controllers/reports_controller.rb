@@ -14,8 +14,7 @@ class ReportsController < ApplicationController
 	end
 
 	def matches
-		@season = Season.last
-		@matches = Match.all.where("season_id = ?", @season.id).order(date: :desc)
+		@matches = Match.all.order(date: :desc).group_by{|m| m.season.number}
 	end
 
 	def match_detail
