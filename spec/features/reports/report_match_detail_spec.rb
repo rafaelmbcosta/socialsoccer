@@ -12,14 +12,6 @@ RSpec.feature "Match detail" do
       { player: FactoryGirl.create(:player), match: @match1 })
   end
 
-  scenario "User select match detail from the matches list" do
-    visit reports_matches_url
-    click_link "#{@match1.id}"
-    expect(current_path).to eq(reports_match_detail_path(id: @match1.id))
-    expect(page).to have_content(I18n.t('content.reports.titles.match_detail'))
-    expect(page).to have_content(I18n.l(@match1.date))
-  end
-
   scenario "User see the match detail" do
     visit reports_match_detail_path(id: @match1.id)
     expect(page).to have_content(@match1.presences.first.player.name)
