@@ -43,7 +43,12 @@
         				<td> <%= l match.date, :format => :default %></td>
         				<td class="video-list">
         					<% match.videos.each do |video| %>
-                    <%= link_to fa_icon("youtube-play 1x"), '#' %>
+                    <%= link_to fa_icon("youtube-play 1x"),
+                      '#',
+                      'data-toggle' => "modal",
+                      'data-target' => "#videoModal",
+                      'data-url' => video.url,
+                      'data-description' => video.description %>
         					<% end %>
         				</td>
         				<td> <%= link_to fa_icon("list-ul"), reports_match_detail_url(match.id) %> </td>
@@ -56,3 +61,27 @@
     <% end %>
   </div>
 </div>
+
+<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title"></h3>
+      </div>
+      <div class="modal-body">
+        <iframe class=".video_url" width="560" height="315" src="#" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#videoModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var url = button.data('url');
+    var description = button.data('description');
+    var modal = $(this)
+    modal.find('.modal-title').text(description);
+    modal.find('iframe').attr('src', url)
+  })
+</script>
