@@ -2,37 +2,57 @@
 	<%= "class=active" %>
 <% end %>
 
-<div class="col-md-12 jumbotron">
-	<h1 class="text-center"> <%= t('content.reports.titles.matches') %> <%= @season.id %> </h1>
-	<br/>
-	<table class="table">
-		<thead>
-			<th> <%= t('content.reports.matches').singularize %> </th>
-			<th> <%= t('content.reports.data') %> </th>
-			<th> <%= t('content.reports.details') %> </th>
-		</thead>
-		<tbody>
-		<% @matches.each do |match| %>
-			<tr>
-				<td> <%= match.id %></td>
-				<td> <%= l match.date, :format => :default %></td>
-				<td>
-						<% if match.videos.empty? %>
-							Nenhum vídeo Relacionado.
-						<% else %>
-							<% match.videos.each do |v| %>
-								<li>
-									<span class="content">
-										<%= v.description %><br />
-										 <iframe width="200" height="110" src="<%= v.url %>" frameborder="0"  allowfullscreen></iframe>
-									</span>
-								</li>
-							<% end %>
-						<% end %>
-				</td>
-				<td> <%= link_to image_tag("details.png"), "/reports/match_detail/#{match.id}", id: match.id %></td>
-			</tr>
-		<% end %>
-		</tbody>
-	</table>
+<div class="col-md-12">
+  <ul class="nav nav-pills nav-fill nav-strikers nav-pills" role="tablist">
+    <% @matches.each do |year, _matches| %>
+      <li class="nav-item">
+        <a
+          class="nav-link nav-item <%= 'active' if year == @matches.keys.first %>"
+          href="#year_<%= year %>"
+          data-toggle="pill"
+          role="pill"
+          aria-controls="year_<%= year %>"><%= year %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+
+	<div class="tab-content">
+    <% @matches.each do |year, matches| %>
+      <% if matches.empty? %>
+        <div
+            class="jumbotron text-center tab-pane <%= pill_class(year, @matches) %>"
+            id="year_<%= year %>"
+            role="tabpanel"
+            aria-labelledby="year_<%= year %>-pill">
+          Nenhum resultado
+        </div>
+      <% else %>
+        <div class="tab-pane <%= pill_class(year, @matches) %>" id="year_<%= year %>">
+        	<table class="table">
+        		<thead>
+        			<th> <%= t('content.reports.matches').singularize %> </th>
+              <th> <%= t('content.reports.data') %> </th>
+        			<th> <%= t('content.reports.videos') %> </th>
+        			<th> <%= t('content.reports.details') %> </th>
+        		</thead>
+        		<tbody>
+        		<% matches.each_with_index do |match, i| %>
+        			<tr>
+        				<td> <%= matches.size - i %></td>
+        				<td> <%= l match.date, :format => :default %></td>
+        				<td class="video-list">
+        					<% match.videos.each do |video| %>
+                    <%= link_to fa_icon("youtube-play 1x"), '#' %>
+        					<% end %>
+        				</td>
+        				<td> <%= link_to fa_icon("list-ul"), reports_match_detail_url(match.id) %> </td>
+        			</tr>
+        		<% end %>
+        		</tbody>
+        	</table>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>

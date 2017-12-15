@@ -31,14 +31,14 @@
   <div class="form-group">
     <%= f.label :date, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.date_select :date, {:order => [:day, :month, :year]} %>
+      <%= f.date_select :date  %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :match, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <label>
-        <%= check_box_tag('vincular_a_partida', checked = false, options = {})  %> Vincular partida manualmente
+        <%= check_box_tag('vincular_a_partida', options = {})  %> Vincular partida manualmente
       </label>
       <%= f.select :match_id, Match.all.collect{|m| [m.date, m.id]}, {prompt: @prompt}, { disabled: true, class: "form-control"} %>
     </div>
