@@ -9,10 +9,8 @@ class PresencesController < ApplicationController
   end
 
   def new_match_presence
-    @players = []
-    @search_term = ""
     if params[:search].present?
-      @search_term = params[:search][:keywords].downcase
+      @search_term = params[:search][:keywords].downcase || ""
       @players = Player.all.where("name ilike '%#{@search_term}%' or nickname ilike '%#{@search_term}%' ")
     end
     @teams = Team.all
