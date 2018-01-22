@@ -13,13 +13,16 @@
 </div>
 <br/>
 
-<div class="col-md-12 jumbotron presences">
+<div class="col-md-12 presences">
   <% unless @players.blank? %>
     <% @players.order(:name).each do |player| %>
       <div class="card" id="player_<%= player.id %>">
         <% presence = player.played_match(@match.id) %>
         <% if presence.blank? %>
-          <%= player.name %> <%= "( #{player.nickname} )" unless player.nickname.nil? %>
+          <div class="card-body">
+            <%= player.name %> <%= "( #{player.nickname} )" unless player.nickname.nil? %>
+            <%= link_to "Jogou", "/presences/played/#{@match.id}/#{player.id}?keywords=#{@search_term}", class: "btn btn-success play", player_id: player.id, id: @match.id %>
+          </div>
         <% else %>
           <%= render partial: "form_presence", locals: { player: player, presence: presence } %>
         <% end %>
