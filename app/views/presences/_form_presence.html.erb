@@ -1,3 +1,22 @@
-<p>
-  Form presence
-</p>
+<h3><%= presence.player.name %></h3>
+
+<div>
+  <%= form_for(presence, as: :presence) do |f| %>
+      <%= f.check_box :presence %>
+    <%= f.label :presence, "Jogou" %>
+
+    <%= f.check_box :payed %>
+    <%= f.label :payed, "Pagou" %>
+
+    <%= f.label :payed_value, "Valor pago" %>
+    <%= f.number_field :payed_value %>
+
+    <%= f.label :goals, "Gols" %>
+    <%= f.number_field :goals %>
+
+    <%= f.label :assist, "Assistencias" %>
+    <%= f.number_field :assist %>
+
+    <%= f.submit "Salvar" %>
+  <% end %>
+</div>

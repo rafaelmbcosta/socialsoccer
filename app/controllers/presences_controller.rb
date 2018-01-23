@@ -52,7 +52,7 @@ class PresencesController < ApplicationController
   def update
     respond_to do |format|
       if @presence.update(presence_params)
-        format.html { redirect_to @presence, notice: 'Presence was successfully updated.' }
+        format.html { redirect_to new_match_presence_path(id: @presence.match_id), notice: 'Resultados atualizado.' }
         format.json { render :show, status: :ok, location: @presence }
       else
         format.html { render :edit }
@@ -136,6 +136,6 @@ class PresencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def presence_params
-      params.require(:presence).permit(:player_id, :match_id, :confirmation, :team_id)
+      params.require(:presence).permit(:player_id, :match_id, :confirmation, :team_id, :goals, :assist, :payed, :payed_value, :presence)
     end
 end
