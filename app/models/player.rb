@@ -27,8 +27,7 @@ class Player < ApplicationRecord
   end
 
   def played_match(match_id)
-    presence = Presence.where("match_id = #{match_id} and player_id = #{self.id} and presence is true")
-    return !presence.empty?
+    Presence.where("match_id = #{match_id} and player_id = #{self.id} and presence is true")
   end
 
   def self.players_by_season(season_id)
