@@ -63,9 +63,9 @@ RSpec.describe Player, :type => :model do
     describe "Scope played_match(match_id)" do
       it "Return true or false if the player palyed the match" do
         player = FactoryGirl.create(:player)
-        expect(player.played_match(finished_match.id)).to eq(false)
+        expect(player.played_match(finished_match.id)).to eq([])
         presence = FactoryGirl.create(:presence,  player_id: player.id, match_id: finished_match.id, goals: 3, presence: true)
-        expect(player.played_match(finished_match.id)).to eq(true)
+        expect(player.played_match(finished_match.id)).to eq([presence])
       end
     end
 
