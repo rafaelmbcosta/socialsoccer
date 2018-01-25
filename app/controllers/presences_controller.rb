@@ -11,7 +11,7 @@ class PresencesController < ApplicationController
   def new_match_presence
     if params[:search].present?
       @search_term = params[:search][:keywords].downcase || ""
-      @players = Player.all.where("name ilike '%#{@search_term}%' or nickname ilike '%#{@search_term}%' ")
+      @players = Player.all.where("(name ilike '%#{@search_term}%' or nickname ilike '%#{@search_term}%') and active is true ")
     end
     @teams = Team.all
     @match = Match.find(params["id"])
@@ -136,6 +136,6 @@ class PresencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def presence_params
-      params.require(:presence).permit(:player_id, :match_id, :confirmation, :team_id, :goals, :assist, :payed, :payed_value, :presence)
+      params.require(:presence).permit(:player_id, :match_id, :confirmation, :team_id, :goals, :assist, :payed, :payed_value, :presence, :exempt)
     end
 end

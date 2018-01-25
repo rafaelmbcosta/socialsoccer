@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180115155555) do
+ActiveRecord::Schema.define(version: 20180124145351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "matches", id: :bigserial, force: :cascade do |t|
+  create_table "matches", force: :cascade do |t|
     t.date     "date"
     t.float    "value",       default: 10.0,  null: false
     t.float    "field_value", default: 150.0, null: false
@@ -23,45 +23,47 @@ ActiveRecord::Schema.define(version: 20180115155555) do
     t.boolean  "video",       default: false, null: false
     t.string   "video_link"
     t.string   "sumula_link"
-    t.bigint   "season_id"
+    t.integer  "season_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.index ["season_id"], name: "index_matches_on_season_id", using: :btree
   end
 
-  create_table "players", id: :bigserial, force: :cascade do |t|
-    t.string   "name",       null: false
+  create_table "players", force: :cascade do |t|
+    t.string   "name",                      null: false
     t.string   "nickname"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "avatar"
+    t.boolean  "active",     default: true
   end
 
-  create_table "presences", id: :bigserial, force: :cascade do |t|
-    t.bigint   "player_id"
-    t.bigint   "match_id"
+  create_table "presences", force: :cascade do |t|
+    t.integer  "player_id"
+    t.integer  "match_id"
     t.boolean  "confirmation", default: false, null: false
     t.boolean  "presence",     default: false, null: false
     t.boolean  "fault",        default: false, null: false
     t.boolean  "payed",        default: false, null: false
     t.integer  "goals",        default: 0,     null: false
-    t.bigint   "team_id"
+    t.integer  "team_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "assist",       default: 0,     null: false
     t.float    "payed_value",  default: 0.0
+    t.boolean  "exempt",       default: false
     t.index ["match_id"], name: "index_presences_on_match_id", using: :btree
     t.index ["player_id"], name: "index_presences_on_player_id", using: :btree
     t.index ["team_id"], name: "index_presences_on_team_id", using: :btree
   end
 
-  create_table "seasons", id: :bigserial, force: :cascade do |t|
+  create_table "seasons", force: :cascade do |t|
     t.integer  "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "teams", id: :bigserial, force: :cascade do |t|
+  create_table "teams", force: :cascade do |t|
     t.string   "color",      null: false
     t.string   "rgb",        null: false
     t.integer  "code"
@@ -69,7 +71,7 @@ ActiveRecord::Schema.define(version: 20180115155555) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", id: :bigserial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -86,12 +88,12 @@ ActiveRecord::Schema.define(version: 20180115155555) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "videos", id: :bigserial, force: :cascade do |t|
+  create_table "videos", force: :cascade do |t|
     t.string   "url"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.integer  "match_id"
-    t.date     "date",        default: '2016-09-14',   null: false
+    t.date     "date",        default: '2017-01-25',   null: false
     t.string   "description", default: "Social Video", null: false
     t.index ["match_id"], name: "index_videos_on_match_id", using: :btree
   end

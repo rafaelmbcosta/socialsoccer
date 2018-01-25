@@ -11,6 +11,7 @@
         <th><%= model_class.human_attribute_name(:name) %></th>
         <th><%= model_class.human_attribute_name(:nickname) %></th>
         <th><%= model_class.human_attribute_name(:avatar) %></th>
+        <th>Ativo</th>
         <th><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
     </thead>
@@ -21,6 +22,7 @@
           <td><%= player.name %></td>
           <td><%= player.nickname %></td>
           <td><%= image_tag(player.avatar.thumb.url)  unless player.avatar.thumb.blank? %></td>
+          <td><%= player.active ? "Sim" : "Não" %></td>
           <td>
             <%= link_to t('.edit', :default => t("helpers.links.edit")),
                         edit_player_path(player), :class => 'btn btn-primary btn-xs' %>
