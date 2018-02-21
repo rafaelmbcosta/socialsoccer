@@ -5,6 +5,8 @@ class Match < ApplicationRecord
 
   mount_uploader :sumula_link, SumulaUploader
 
+  validates :date, presence: true
+
   def self.unfinished
     return Match.all.where("finished is false")
   end

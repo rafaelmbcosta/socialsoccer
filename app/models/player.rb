@@ -6,6 +6,8 @@ class Player < ApplicationRecord
   has_many :matches, through: :presences
   mount_uploader :avatar, AvatarUploader
 
+  scope :active, -> { where('active is true') }
+
   def self.presence(player_id, match_id)
     presence = Presence.where("match_id = #{match_id} and player_id = #{player_id}")
     presence.empty? ? (return Presence.new(player_id: player_id, match_id: match_id)) : (return presence.first)
