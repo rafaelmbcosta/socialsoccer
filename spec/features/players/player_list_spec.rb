@@ -14,7 +14,7 @@ RSpec.feature "Listing Players" do
   end
 
   scenario "User see the list of players" do
-    players = FactoryGirl.create_list(:player, 3)
+    players = FactoryBot.create_list(:player, 3)
     login_as @user
     visit players_url
     expect(page).to have_content(I18n.t('helpers.titles.list', :model => Player.model_name.human.titleize))

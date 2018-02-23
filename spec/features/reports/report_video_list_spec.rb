@@ -5,7 +5,7 @@ RSpec.feature "Listing Videos" do
   before do
     page.driver.header 'Accept-Language', :en
     I18n.locale = :en
-    @videos = FactoryGirl.create_list(:video, 2)
+    @videos = FactoryBot.create_list(:video, 2)
   end
 
   scenario "User select 'Videos' from the main menu" do

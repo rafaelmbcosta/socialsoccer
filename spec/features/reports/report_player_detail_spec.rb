@@ -5,12 +5,12 @@ RSpec.feature "Player detail" do
   before do
     page.driver.header 'Accept-Language', :en
     I18n.locale = :en
-    @season = FactoryGirl.build(:season)
-    @season.matches << FactoryGirl.build_list(:match, 4)
-    @players = FactoryGirl.build_list(:player, 3)
+    @season = FactoryBot.build(:season)
+    @season.matches << FactoryBot.build_list(:match, 4)
+    @players = FactoryBot.build_list(:player, 3)
     @season.matches.each do |match|
       @players.each do |player|
-        match.presences << FactoryGirl.build(:presence, player: player, goals: 1, assist: 3)
+        match.presences << FactoryBot.build(:presence, player: player, goals: 1, assist: 3)
         match.save
       end
     end
@@ -29,10 +29,10 @@ RSpec.feature "Player detail" do
     player = @players.first
     visit reports_player_path(player.id)
 
-    @new_season = FactoryGirl.build(:season)
-    @new_season.matches << FactoryGirl.build_list(:match, 4)
+    @new_season = FactoryBot.build(:season)
+    @new_season.matches << FactoryBot.build_list(:match, 4)
     @new_season.matches.each do |match|
-      match.presences << FactoryGirl.build(:presence, player: player, goals: 2)
+      match.presences << FactoryBot.build(:presence, player: player, goals: 2)
     end
     @new_season.save
 

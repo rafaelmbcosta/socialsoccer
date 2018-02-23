@@ -6,7 +6,7 @@ RSpec.feature "Deleting a Video" do
     page.driver.header 'Accept-Language', :en
     I18n.locale = :en
     @user = User.create!(email: "user@gmail.com", password: "123456", password_confirmation: "123456")
-    @video = FactoryGirl.create(:video)
+    @video = FactoryBot.create(:video)
   end
 
   scenario "User should be redirected to login if unauthorized" do

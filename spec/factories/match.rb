@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :match, class: Match do
     date      { Faker::Business.credit_card_expiry_date }
     finished  { false }

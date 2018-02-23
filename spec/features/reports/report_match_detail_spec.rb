@@ -5,11 +5,11 @@ RSpec.feature "Match detail" do
   before do
     page.driver.header 'Accept-Language', :en
     I18n.locale = :en
-    @season = FactoryGirl.create(:season)
-    @match1 = FactoryGirl.create(:match, season: @season )
-    @match2 = FactoryGirl.create(:match, season: @season )
-    @presences = FactoryGirl.create_list(:presence, 4,
-      { player: FactoryGirl.create(:player), match: @match1 })
+    @season = FactoryBot.create(:season)
+    @match1 = FactoryBot.create(:match, season: @season )
+    @match2 = FactoryBot.create(:match, season: @season )
+    @presences = FactoryBot.create_list(:presence, 4,
+      { player: FactoryBot.create(:player), match: @match1 })
   end
 
   scenario "User see the match detail" do

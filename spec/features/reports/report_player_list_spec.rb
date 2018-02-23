@@ -5,12 +5,12 @@ RSpec.feature "Listing Players" do
   before do
     page.driver.header 'Accept-Language', :en
     I18n.locale = :en
-    @season = FactoryGirl.build(:season)
-    @season.matches << FactoryGirl.build_list(:match, 4)
-    @players = FactoryGirl.build_list(:player, 3)
+    @season = FactoryBot.build(:season)
+    @season.matches << FactoryBot.build_list(:match, 4)
+    @players = FactoryBot.build_list(:player, 3)
     @season.matches.each do |match|
       @players.each do |player|
-        match.presences << FactoryGirl.build(:presence, player: player)
+        match.presences << FactoryBot.build(:presence, player: player)
       end
     end
     @season.save
@@ -33,10 +33,10 @@ RSpec.feature "Listing Players" do
   end
 
   scenario "A user lists players from previous seasons" do
-    @new_season = FactoryGirl.create(:season)
-    @new_match = FactoryGirl.create(:match, season: @new_season)
-    @new_player = FactoryGirl.create(:player)
-    presence = FactoryGirl.create(:presence, player: @new_player, match: @new_match)
+    @new_season = FactoryBot.create(:season)
+    @new_match = FactoryBot.create(:match, season: @new_season)
+    @new_player = FactoryBot.create(:player)
+    presence = FactoryBot.create(:presence, player: @new_player, match: @new_match)
     @new_match.presences << presence
 
     visit reports_players_url

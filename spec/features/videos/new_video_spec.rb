@@ -16,7 +16,7 @@ RSpec.feature "Creating Video" do
   end
 
   scenario "User creates video" do
-    video = FactoryGirl.build(:video)
+    video = FactoryBot.build(:video)
     login_as @user
     visit new_video_url
     expect(page).to have_content('New Video')
@@ -30,7 +30,7 @@ RSpec.feature "Creating Video" do
   end
 
   scenario "User fails to create a video" do
-    video = FactoryGirl.build(:video)
+    video = FactoryBot.build(:video)
     login_as @user
     visit new_video_url
     expect(page).to have_content('New Video')

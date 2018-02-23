@@ -6,7 +6,7 @@ RSpec.feature "Listing Videos" do
     page.driver.header 'Accept-Language', :en
     I18n.locale = :en
     @user = User.create!(email: "user@gmail.com", password: "123456", password_confirmation: "123456")
-    @videos = FactoryGirl.create_list(:video, 2)
+    @videos = FactoryBot.create_list(:video, 2)
   end
 
   scenario "User should be redirected to login if unauthorized" do
@@ -17,7 +17,7 @@ RSpec.feature "Listing Videos" do
   end
 
   scenario "User see the list of videos" do
-    @videos = FactoryGirl.create_list(:video, 2)
+    @videos = FactoryBot.create_list(:video, 2)
     login_as @user
     visit videos_url
     expect(page).to have_content(I18n.t('content.reports.titles.videos'))

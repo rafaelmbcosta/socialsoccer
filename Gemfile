@@ -4,7 +4,7 @@ source 'http://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 # Use Postgres as the database for Active Record
-gem 'pg'
+gem 'pg', '0.21.0'
 # Use SCSS for stylesheets
 gem 'puma', '~> 3.0'
 # para o deploy
@@ -58,7 +58,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
 
   # Mock rails models
-  gem "factory_girl_rails", "~> 4.4.1"
+  gem 'factory_bot_rails'
 
   # Generate random data for factories
   gem "faker", "~> 1.6.3"
@@ -69,8 +69,9 @@ group :development, :test do
   # Make easier to test for associations
   gem 'shoulda'
 
+  gem 'database_cleaner'
 
-
+  gem 'mocha', '1.3.0'
   # Functional testing
   gem 'capybara'
 end

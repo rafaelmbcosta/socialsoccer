@@ -6,13 +6,6 @@ class ReportsController < ApplicationController
 		end
 	end
 
-	def seasons
-		@seasons = Season.all.collect{|season| { _id: season.id, number: season.number}}
-		respond_to do |format|
-			format.json { render json: @seasons }
-		end
-	end
-
 	def matches
 		@matches = Match.all.order(date: :desc).group_by{|m| m.season.number}
 	end

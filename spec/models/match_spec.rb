@@ -6,9 +6,9 @@ RSpec.describe Match, :type => :model do
     it { should have_many :videos }
   end
 
-  let!(:unfinished_match) { FactoryGirl.create(:match) }
-  let!(:finished_match) { FactoryGirl.create(:match, date: Date.new, finished: true) }
-  let!(:player) { FactoryGirl.create(:player) }
+  let!(:unfinished_match) { FactoryBot.create(:match) }
+  let!(:finished_match) { FactoryBot.create(:match, date: Date.new, finished: true) }
+  let!(:player) { FactoryBot.create(:player) }
 
   #Service is stubbed (see rails helper)
   describe "Scope 'unfinished'" do
@@ -21,9 +21,9 @@ RSpec.describe Match, :type => :model do
 
   describe "Scope 'average_goal_by_player'" do
     it 'must be precise' do
-      FactoryGirl.create(:presence, player_id: player.id, match_id: finished_match.id, goals: 1)
-      another_player = FactoryGirl.create(:player)
-      FactoryGirl.create(:presence, player_id: another_player.id, match_id: finished_match.id, goals: 3)
+      FactoryBot.create(:presence, player_id: player.id, match_id: finished_match.id, goals: 1)
+      another_player = FactoryBot.create(:player)
+      FactoryBot.create(:presence, player_id: another_player.id, match_id: finished_match.id, goals: 3)
       expect(finished_match.average_goal_by_player).to eq(2.0)
     end
   end
@@ -31,8 +31,8 @@ RSpec.describe Match, :type => :model do
   describe "Scope 'find_videos_and_relate'" do
     before do
       date = Date.today
-      @video = FactoryGirl.build(:video, date: I18n.l(date))
-      @match = FactoryGirl.build(:match, date: I18n.l(date), finished: true)
+      @video = FactoryBot.build(:video, date: I18n.l(date))
+      @match = FactoryBot.build(:match, date: I18n.l(date), finished: true)
     end
 
     it 'must link match to existing videos' do

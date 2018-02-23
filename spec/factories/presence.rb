@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :presence do
     goals    { rand(1..4) }
     assist   { rand(1..3) }
